@@ -1,5 +1,6 @@
 import * as faker from 'faker';
 import * as React from 'react';
+import { View } from 'react-native';
 
 import PatientList from '../components/PatientList';
 
@@ -12,5 +13,9 @@ const PATIENTS = [...Array(100).keys()].map((id) => ({
 }));
 
 export default function MyPatientsScreen() {
-  return <PatientList onPress={() => {}} patients={PATIENTS} />;
+  return (
+    <View style={{ flex: 1 }}>
+      <PatientList onPress={() => {}} patients={PATIENTS} />
+    </View>
+  );
 }

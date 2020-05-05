@@ -18,7 +18,11 @@ const NOTES = [...Array(100).keys()].map((id) => ({
   id: id.toString(),
 }));
 
-export default function PatientScreen() {
+export default function PatientScreen({ navigation }) {
+  React.useEffect(() => {
+    navigation.setOptions({ title: PATIENT.name });
+  }, []);
+
   return <NoteList notes={NOTES} onPress={() => {}} />;
 }
 
