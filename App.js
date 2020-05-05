@@ -3,11 +3,13 @@ import { StyleSheet, Text, View } from 'react-native';
 
 import { Colors } from './constants';
 import MyPatientsScreen from './screens/MyPatientsScreen';
+import PatientScreen from './screens/PatientScreen';
+import NoteScreen from './screens/NoteScreen';
 
 export default function App() {
   return (
     <View style={styles.container}>
-      <MyPatientsScreen />
+      <NoteScreen />
     </View>
   );
 }

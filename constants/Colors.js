@@ -1,3 +1,5 @@
+import color from 'color';
+
 // Find color palette at:
 // https://coolors.co/fff8f0-9e2b25-51355a-2a0c4e-011627-f5f8de
 const NAMED_COLORS = {
@@ -7,11 +9,14 @@ const NAMED_COLORS = {
   floralWhite: '#fff8f0',
   richBlack: '#011627',
   russianViolet: '#2a0C4e',
+  white: '#ffffff',
 };
 
 const THEME_COLORS = {
   background: NAMED_COLORS.floralWhite,
+  border: color(NAMED_COLORS.richBlack).alpha(0.1).rgb().string(),
   primary: NAMED_COLORS.auburn,
+  surface: NAMED_COLORS.white,
   text: NAMED_COLORS.richBlack,
 };
 
