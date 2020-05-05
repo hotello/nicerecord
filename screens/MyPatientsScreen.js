@@ -12,5 +12,5 @@ const PATIENTS = [...Array(100).keys()].map((id) => ({
 }));
 
 export default function MyPatientsScreen() {
-  return <PatientList patients={PATIENTS} />;
+  return <PatientList onPress={() => {}} patients={PATIENTS} />;
 }

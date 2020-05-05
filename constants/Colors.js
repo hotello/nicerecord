@@ -10,7 +10,7 @@ const NAMED_COLORS = {
 };
 
 const THEME_COLORS = {
-  backgroundColor: NAMED_COLORS.floralWhite,
+  background: NAMED_COLORS.floralWhite,
   primary: NAMED_COLORS.auburn,
   text: NAMED_COLORS.richBlack,
 };
