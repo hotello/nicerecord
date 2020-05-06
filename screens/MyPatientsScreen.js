@@ -1,8 +1,11 @@
 import * as faker from 'faker';
 import * as React from 'react';
-import { View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 
+import { IconButton } from '../components/base';
 import PatientList from '../components/PatientList';
+
+import { Sizes } from '../constants';
 
 const PATIENTS = [...Array(100).keys()].map((id) => ({
   birthDate: faker.date.past(),
@@ -13,6 +16,11 @@ const PATIENTS = [...Array(100).keys()].map((id) => ({
 }));
 
 export default function MyPatientsScreen({ navigation }) {
+  React.useEffect(() => {
+    navigation.setOptions({
+      headerRight: () => <IconButton icon="person-add" style={styles.icon} />,
+    });
+  }, []);
   return (
     <View style={{ flex: 1 }}>
       <PatientList
@@ -22,3 +30,9 @@ export default function MyPatientsScreen({ navigation }) {
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  icon: {
+    marginRight: Sizes.edge,
+  },
+});

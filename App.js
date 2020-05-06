@@ -65,6 +65,8 @@ const styles = StyleSheet.create({
   },
   left: {
     flex: 1 / 3,
+    borderColor: Colors.border,
+    borderWidth: StyleSheet.hairlineWidth,
   },
   right: {
     flex: 2 / 3,
