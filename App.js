@@ -34,19 +34,12 @@ export default function App() {
               component={MyPatientsScreen}
               options={{ title: 'My patients' }}
             />
-          </LeftStack.Navigator>
-        </NavigationContainer>
-      </View>
-
-      <View style={styles.middle}>
-        <NavigationContainer theme={NavigationTheme}>
-          <MiddleStack.Navigator>
             <MiddleStack.Screen
               name="Patient"
               component={PatientScreen}
               options={{ title: 'Patient' }}
             />
-          </MiddleStack.Navigator>
+          </LeftStack.Navigator>
         </NavigationContainer>
       </View>
 
@@ -71,12 +64,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   left: {
-    flex: 0.2,
-  },
-  middle: {
-    flex: 0.35,
+    flex: 1 / 3,
   },
   right: {
-    flex: 0.45,
+    flex: 2 / 3,
   },
 });

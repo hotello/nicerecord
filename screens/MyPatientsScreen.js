@@ -12,10 +12,13 @@ const PATIENTS = [...Array(100).keys()].map((id) => ({
   picture: faker.image.avatar(),
 }));
 
-export default function MyPatientsScreen() {
+export default function MyPatientsScreen({ navigation }) {
   return (
     <View style={{ flex: 1 }}>
-      <PatientList onPress={() => {}} patients={PATIENTS} />
+      <PatientList
+        onPress={() => navigation.navigate('Patient')}
+        patients={PATIENTS}
+      />
     </View>
   );
 }
