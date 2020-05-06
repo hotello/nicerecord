@@ -4,6 +4,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
 import { Colors } from './constants';
+import CreatePatientScreen from './screens/CreatePatientScreen';
 import MyPatientsScreen from './screens/MyPatientsScreen';
 import PatientScreen from './screens/PatientScreen';
 import NoteScreen from './screens/NoteScreen';
@@ -38,6 +39,11 @@ export default function App() {
               name="Patient"
               component={PatientScreen}
               options={{ title: 'Patient' }}
+            />
+            <MiddleStack.Screen
+              name="CreatePatient"
+              component={CreatePatientScreen}
+              options={{ title: 'New patient' }}
             />
           </LeftStack.Navigator>
         </NavigationContainer>

@@ -18,7 +18,13 @@ const PATIENTS = [...Array(100).keys()].map((id) => ({
 export default function MyPatientsScreen({ navigation }) {
   React.useEffect(() => {
     navigation.setOptions({
-      headerRight: () => <IconButton icon="person-add" style={styles.icon} />,
+      headerRight: () => (
+        <IconButton
+          icon="person-add"
+          style={styles.icon}
+          onPress={() => navigation.navigate('CreatePatient')}
+        />
+      ),
     });
   }, []);
   return (

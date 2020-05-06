@@ -15,6 +15,7 @@ const NAMED_COLORS = {
 const THEME_COLORS = {
   background: NAMED_COLORS.floralWhite,
   border: color(NAMED_COLORS.richBlack).alpha(0.1).rgb().string(),
+  muted: color(NAMED_COLORS.richBlack).alpha(0.5).rgb().string(),
   primary: NAMED_COLORS.auburn,
   secondary: NAMED_COLORS.englishViolet,
   surface: NAMED_COLORS.white,
