@@ -1,9 +1,11 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { Dimensions, StyleSheet, Text, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
 import { Colors } from './constants';
+import i18n from './i18n';
 import CreatePatientScreen from './screens/CreatePatientScreen';
 import MyPatientsScreen from './screens/MyPatientsScreen';
 import PatientScreen from './screens/PatientScreen';
@@ -24,6 +26,8 @@ const NavigationTheme = {
 };
 
 export default function App() {
+  const { t } = useTranslation();
+
   return (
     <View style={styles.container}>
       <View style={styles.left}>
@@ -32,17 +36,17 @@ export default function App() {
             <LeftStack.Screen
               name="MyPatients"
               component={MyPatientsScreen}
-              options={{ title: 'My patients' }}
+              options={{ title: t('myPatients') }}
             />
             <LeftStack.Screen
               name="Patient"
               component={PatientScreen}
-              options={{ title: 'Patient' }}
+              options={{ title: t('patient') }}
             />
             <LeftStack.Screen
               name="CreatePatient"
               component={CreatePatientScreen}
-              options={{ title: 'Create patient' }}
+              options={{ title: t('createPatient') }}
             />
           </LeftStack.Navigator>
         </NavigationContainer>
@@ -54,7 +58,7 @@ export default function App() {
             <RightStack.Screen
               name="Note"
               component={NoteScreen}
-              options={{ title: 'Note' }}
+              options={{ title: t('note') }}
             />
           </RightStack.Navigator>
         </NavigationContainer>

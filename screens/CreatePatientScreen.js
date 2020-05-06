@@ -1,5 +1,6 @@
 import * as faker from 'faker';
 import * as React from 'react';
+import { useTranslation } from 'react-i18next';
 import { Image, StyleSheet, View } from 'react-native';
 
 import { Colors, Sizes } from '../constants';
@@ -19,32 +20,35 @@ const PATIENT = {
 };
 
 export default function NoteScreen({ navigation }) {
+  const { t } = useTranslation();
+
   React.useEffect(() => {
     navigation.setOptions({
       headerRight: () => (
         <View style={styles.done}>
-          <Button bold title="Save" />
+          <Button bold title={t('save')} />
         </View>
       ),
     });
   }, []);
+
   return (
     <View style={styles.screen}>
       <TextInputGroup style={styles.pictureContainer}>
         <Image source={{ uri: PATIENT.picture }} style={styles.picture} />
-        <Button title="Set picture" />
+        <Button title={t('setPicture')} />
       </TextInputGroup>
 
       <TextInputGroup>
-        <TextInput placeholder="First name" underlineIOS />
-        <TextInput placeholder="Last name" />
+        <TextInput placeholder={t('firstName')} underlineIOS />
+        <TextInput placeholder={t('lastName')} />
       </TextInputGroup>
 
       <TextInputGroup>
         <TextInput
           autoCompleteType="tel"
           keyboardType="number-pad"
-          placeholder="Phone number"
+          placeholder={t('phoneNumber')}
           style={styles.input}
         />
       </TextInputGroup>
