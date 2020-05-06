@@ -1,3 +1,4 @@
+import dayjs from 'dayjs';
 import * as React from 'react';
 import { Image, SectionList, StyleSheet, View } from 'react-native';
 
@@ -12,7 +13,7 @@ function Item({ onPress, item }) {
         <Image source={{ uri: item.picture }} style={styles.picture} />
         <View style={styles.center}>
           <Text>{item.name}</Text>
-          <Text muted>{item.birthDate.toLocaleDateString()}</Text>
+          <Text muted>{dayjs(item.birthDate).format('LL')}</Text>
         </View>
       </View>
     </Touchable>

@@ -1,3 +1,4 @@
+import dayjs from 'dayjs';
 import React from 'react';
 import { View, FlatList, StyleSheet } from 'react-native';
 import Constants from 'expo-constants';
@@ -10,7 +11,7 @@ function Item({ item, onPress }) {
     <Touchable>
       <View style={styles.item}>
         <Text style={styles.createdAt}>
-          {item.createdAt.toLocaleDateString()}
+          {dayjs(item.createdAt).format('LL')}
         </Text>
         <Text>{item.content}</Text>
       </View>
@@ -31,6 +32,7 @@ export default function NoteList({ onPress, notes }) {
 const styles = StyleSheet.create({
   createdAt: {
     fontWeight: 'bold',
+    marginBottom: Sizes.unit * 2,
   },
   item: {
     backgroundColor: Colors.surface,
