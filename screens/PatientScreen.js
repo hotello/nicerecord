@@ -24,7 +24,11 @@ export default function PatientScreen({ navigation }) {
   React.useEffect(() => {
     navigation.setOptions({
       headerRight: () => (
-        <IconButton icon="information-circle-outline" style={styles.icon} />
+        <IconButton
+          icon="information-circle-outline"
+          onPress={() => navigation.navigate('CreatePatient')}
+          style={styles.icon}
+        />
       ),
       title: PATIENT.name,
     });

@@ -10,7 +10,6 @@ import PatientScreen from './screens/PatientScreen';
 import NoteScreen from './screens/NoteScreen';
 
 const LeftStack = createStackNavigator();
-const MiddleStack = createStackNavigator();
 const RightStack = createStackNavigator();
 
 const NavigationTheme = {
@@ -35,15 +34,15 @@ export default function App() {
               component={MyPatientsScreen}
               options={{ title: 'My patients' }}
             />
-            <MiddleStack.Screen
+            <LeftStack.Screen
               name="Patient"
               component={PatientScreen}
               options={{ title: 'Patient' }}
             />
-            <MiddleStack.Screen
+            <LeftStack.Screen
               name="CreatePatient"
               component={CreatePatientScreen}
-              options={{ title: 'New patient' }}
+              options={{ title: 'Create patient' }}
             />
           </LeftStack.Navigator>
         </NavigationContainer>
