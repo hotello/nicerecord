@@ -26,7 +26,7 @@ export default function PatientScreen({ navigation }) {
       headerRight: () => (
         <IconButton
           icon="information-circle-outline"
-          onPress={() => navigation.navigate('CreatePatient')}
+          onPress={() => navigation.navigate('Profile', { edit: false })}
           style={styles.icon}
         />
       ),

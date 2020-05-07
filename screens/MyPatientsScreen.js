@@ -22,7 +22,7 @@ export default function MyPatientsScreen({ navigation }) {
         <IconButton
           icon="person-add"
           style={styles.icon}
-          onPress={() => navigation.navigate('CreatePatient')}
+          onPress={() => navigation.navigate('Profile', { edit: true })}
         />
       ),
     });

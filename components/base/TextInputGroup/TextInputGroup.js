@@ -13,6 +13,7 @@ export default function TextInputGroup({ children, style, ...props }) {
 
 const styles = StyleSheet.create({
   group: {
+    backgroundColor: Colors.surface,
     borderBottomColor: Colors.border,
     borderBottomWidth: StyleSheet.hairlineWidth,
     borderTopColor: Colors.border,

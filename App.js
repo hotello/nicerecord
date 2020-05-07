@@ -6,10 +6,10 @@ import { createStackNavigator } from '@react-navigation/stack';
 
 import { Colors } from './constants';
 import i18n from './i18n';
-import CreatePatientScreen from './screens/CreatePatientScreen';
 import MyPatientsScreen from './screens/MyPatientsScreen';
-import PatientScreen from './screens/PatientScreen';
 import NoteScreen from './screens/NoteScreen';
+import PatientScreen from './screens/PatientScreen';
+import ProfileScreen from './screens/ProfileScreen';
 
 const LeftStack = createStackNavigator();
 const RightStack = createStackNavigator();
@@ -44,9 +44,9 @@ export default function App() {
               options={{ title: t('patient') }}
             />
             <LeftStack.Screen
-              name="CreatePatient"
-              component={CreatePatientScreen}
-              options={{ title: t('createPatient') }}
+              name="Profile"
+              component={ProfileScreen}
+              options={{ title: t('profile') }}
             />
           </LeftStack.Navigator>
         </NavigationContainer>

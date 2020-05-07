@@ -1,13 +1,18 @@
 {
   "translation": {
-    "createPatient": "Create patient",
+    "birthDate": "Birth date",
+    "edit": "Edit",
     "firstName": "First name",
     "lastName": "Last name",
     "myPatients": "My patients",
     "note": "Note",
+    "notes": "Notes",
     "writeHere": "Write here...",
     "patient": "Patient",
+    "patientId": "ID",
     "phoneNumber": "Phone number",
+    "profile": "Patient profile",
+    "profileEdit": "Edit patient",
     "save": "Save",
     "setPicture": "Set picture"
   }

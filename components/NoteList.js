@@ -1,4 +1,4 @@
-import dayjs from 'dayjs';
+import { format } from 'date-fns';
 import React from 'react';
 import { View, FlatList, StyleSheet } from 'react-native';
 import Constants from 'expo-constants';
@@ -10,9 +10,7 @@ function Item({ item, onPress }) {
   return (
     <Touchable>
       <View style={styles.item}>
-        <Text style={styles.createdAt}>
-          {dayjs(item.createdAt).format('LL')}
-        </Text>
+        <Text style={styles.createdAt}>{format(item.createdAt, 'PP')}</Text>
         <Text>{item.content}</Text>
       </View>
     </Touchable>

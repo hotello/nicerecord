@@ -1,9 +1,5 @@
-import dayjs from 'dayjs';
-import * as localizedFormat from 'dayjs/plugin/localizedFormat';
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
-
-dayjs.extend(localizedFormat);
 
 const resources = {
   en: require('./en.json'),

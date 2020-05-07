@@ -1,11 +1,12 @@
 import * as faker from 'faker';
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
-import { Image, StyleSheet, View } from 'react-native';
+import { Image, ScrollView, StyleSheet, View } from 'react-native';
 
 import { Colors, Sizes } from '../constants';
 import {
   Button,
+  DateInput,
   IconButton,
   TextInput,
   TextInputGroup,
@@ -19,40 +20,67 @@ const PATIENT = {
   picture: faker.image.avatar(),
 };
 
-export default function NoteScreen({ navigation }) {
+export default function ProfileScreen({ route, navigation }) {
   const { t } = useTranslation();
+  const edit = route.params?.edit;
 
   React.useEffect(() => {
     navigation.setOptions({
       headerRight: () => (
         <View style={styles.done}>
-          <Button bold title={t('save')} />
+          {edit ? (
+            <Button
+              bold
+              onPress={() => navigation.navigate('Profile', { edit: false })}
+              title={t('save')}
+            />
+          ) : (
+            <Button
+              onPress={() => navigation.navigate('Profile', { edit: true })}
+              title={t('edit')}
+            />
+          )}
         </View>
       ),
+      title: edit ? t('profileEdit') : t('profile'),
     });
-  }, []);
+  }, [route.params]);
 
   return (
-    <View style={styles.screen}>
+    <ScrollView style={styles.screen}>
       <TextInputGroup style={styles.pictureContainer}>
         <Image source={{ uri: PATIENT.picture }} style={styles.picture} />
-        <Button title={t('setPicture')} />
+        {edit && <Button title={t('setPicture')} />}
       </TextInputGroup>
 
       <TextInputGroup>
-        <TextInput placeholder={t('firstName')} underlineIOS />
-        <TextInput placeholder={t('lastName')} />
+        <TextInput editable={edit} placeholder={t('firstName')} underlineIOS />
+        <TextInput editable={edit} placeholder={t('lastName')} />
       </TextInputGroup>
 
       <TextInputGroup>
+        <DateInput editable={edit} label={t('birthDate')} value={new Date()} />
+      </TextInputGroup>
+
+      <TextInputGroup>
+        <TextInput editable={edit} placeholder={t('patientId')} underlineIOS />
         <TextInput
-          autoCompleteType="tel"
+          editable={edit}
           keyboardType="number-pad"
           placeholder={t('phoneNumber')}
           style={styles.input}
         />
       </TextInputGroup>
-    </View>
+
+      <TextInputGroup>
+        <TextInput
+          editable={edit}
+          multiline={true}
+          numberOfLines={10}
+          placeholder={t('notes')}
+        />
+      </TextInputGroup>
+    </ScrollView>
   );
 }
 

@@ -31,7 +31,6 @@ export default React.forwardRef(function TextInput(
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: Colors.surface,
     paddingLeft: Sizes.content,
   },
   input: {
