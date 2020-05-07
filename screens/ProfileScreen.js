@@ -55,7 +55,8 @@ export default function ProfileScreen({ route, navigation }) {
 
       <TextInputGroup>
         <TextInput editable={edit} placeholder={t('firstName')} underlineIOS />
-        <TextInput editable={edit} placeholder={t('lastName')} />
+        <TextInput editable={edit} placeholder={t('lastName')} underlineIOS />
+        <TextInput editable={edit} placeholder={t('patientId')} />
       </TextInputGroup>
 
       <TextInputGroup>
@@ -63,12 +64,16 @@ export default function ProfileScreen({ route, navigation }) {
       </TextInputGroup>
 
       <TextInputGroup>
-        <TextInput editable={edit} placeholder={t('patientId')} underlineIOS />
         <TextInput
           editable={edit}
-          keyboardType="number-pad"
+          keyboardType="phone-pad"
           placeholder={t('phoneNumber')}
-          style={styles.input}
+          underlineIOS
+        />
+        <TextInput
+          editable={edit}
+          keyboardType="email-address"
+          placeholder={t('email')}
         />
       </TextInputGroup>
 
