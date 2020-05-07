@@ -17,7 +17,9 @@ export default function DateInput(
           disabled={!editable}
           onChange={onChange}
           type="date"
-          value={value.toISOString().substring(0, 10)}
+          value={
+            value.toISOString ? value.toISOString().substring(0, 10) : value
+          }
         />
       </View>
     </View>

@@ -17,7 +17,11 @@
     "date-fns": "^2.13.0",
     "expo": "~37.0.3",
     "faker": "^4.1.0",
+    "formik": "^2.1.4",
     "i18next": "^19.4.4",
+    "pouchdb": "^7.2.1",
+    "pouchdb-adapter-asyncstorage": "^6.4.1",
+    "pouchdb-collate": "^7.2.1",
     "react": "~16.9.0",
     "react-dom": "~16.9.0",
     "react-i18next": "^11.4.0",
@@ -26,7 +30,8 @@
     "react-native-reanimated": "~1.7.0",
     "react-native-safe-area-context": "0.7.3",
     "react-native-screens": "~2.2.0",
-    "react-native-web": "~0.11.7"
+    "react-native-web": "~0.11.7",
+    "yup": "^0.28.5"
   },
   "devDependencies": {
     "@babel/core": "^7.8.6",
