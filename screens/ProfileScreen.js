@@ -53,9 +53,11 @@ export default function ProfileScreen({ route, navigation }) {
         }
         db.put({
           _id: pouchCollate.toIndexableString([lastName, firstName, birthDate]),
-          birthDate,
-          firstName,
-          lastName,
+          birthDate: birthDate,
+          firstName: firstName,
+          lastName: lastName,
+          name: `${lastName} ${firstName}`,
+          type: 'patient',
           ...rest,
         })
           .then(() => navigation.navigate('Profile', { edit: false }))

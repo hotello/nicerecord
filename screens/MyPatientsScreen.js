@@ -4,6 +4,7 @@ import { StyleSheet, View } from 'react-native';
 
 import { IconButton } from '../components/base';
 import PatientList from '../components/PatientList';
+import db from '../lib/db';
 
 import { Sizes } from '../constants';
 
@@ -16,6 +17,7 @@ const PATIENTS = [...Array(100).keys()].map((id) => ({
 }));
 
 export default function MyPatientsScreen({ navigation }) {
+  const [patients, setPatients] = React.useState([]);
   React.useEffect(() => {
     navigation.setOptions({
       headerRight: () => (
@@ -27,11 +29,22 @@ export default function MyPatientsScreen({ navigation }) {
       ),
     });
   }, []);
+
+  React.useEffect(() => {
+    db.find({
+      selector: {
+        type: 'patient',
+      },
+    })
+      .then(({ docs }) => setPatients(docs))
+      .catch(console.error);
+  }, []);
+
   return (
     <View style={{ flex: 1 }}>
       <PatientList
         onPress={() => navigation.navigate('Patient')}
-        patients={PATIENTS}
+        patients={patients}
       />
     </View>
   );

@@ -13,7 +13,7 @@ function Item({ onPress, item }) {
         <Image source={{ uri: item.picture }} style={styles.picture} />
         <View style={styles.center}>
           <Text>{item.name}</Text>
-          <Text muted>{format(item.birthDate, 'PP')}</Text>
+          <Text muted>{format(new Date(item.birthDate), 'PP')}</Text>
         </View>
       </View>
     </Touchable>
