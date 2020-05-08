@@ -18,6 +18,7 @@ const PATIENTS = [...Array(100).keys()].map((id) => ({
 
 export default function MyPatientsScreen({ navigation }) {
   const [patients, setPatients] = React.useState([]);
+
   React.useEffect(() => {
     navigation.setOptions({
       headerRight: () => (
@@ -33,13 +34,23 @@ export default function MyPatientsScreen({ navigation }) {
   }, []);
 
   React.useEffect(() => {
-    db.find({
-      selector: {
-        type: 'patient',
-      },
-    })
-      .then(({ docs }) => setPatients(docs))
-      .catch(console.error);
+    const findPatients = () =>
+      db
+        .find({
+          selector: {
+            type: 'patient',
+          },
+        })
+        .then(({ docs }) => setPatients(docs))
+        .catch(console.error);
+    const changes = db.changes({
+      filter: (doc) => doc.type === 'patient' || doc._deleted,
+      live: true,
+    });
+
+    findPatients().then(() => changes.on('change', findPatients));
+
+    return changes.cancel;
   }, []);
 
   return (
