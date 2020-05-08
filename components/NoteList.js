@@ -1,4 +1,4 @@
-import { format } from 'date-fns';
+import format from 'date-fns/format';
 import React from 'react';
 import { View, FlatList, StyleSheet } from 'react-native';
 import Constants from 'expo-constants';

@@ -1,4 +1,4 @@
-import { format } from 'date-fns';
+import format from 'date-fns/format';
 import * as React from 'react';
 import { SectionList, StyleSheet, View } from 'react-native';
 

@@ -1,3 +1,4 @@
+import sub from 'date-fns/sub';
 import * as faker from 'faker';
 import { useFormik } from 'formik';
 import * as pouchCollate from 'pouchdb-collate';
@@ -26,7 +27,9 @@ const PATIENT = {
 };
 
 const SignupSchema = Yup.object().shape({
-  birthDate: Yup.date().required(),
+  birthDate: Yup.date()
+    .max(sub(new Date(), { days: 1 }))
+    .required(),
   email: Yup.string().max(150).email(),
   firstName: Yup.string().max(50).required(),
   lastName: Yup.string().max(50).required(),
@@ -43,6 +46,7 @@ export default function ProfileScreen({ route, navigation }) {
         birthDate: new Date(),
         email: '',
         firstName: '',
+        homeAddress: '',
         lastName: '',
         notes: '',
         patientId: '',
@@ -122,17 +126,6 @@ export default function ProfileScreen({ route, navigation }) {
           underlineIOS
           value={values.lastName}
         />
-        <TextInput
-          editable={edit}
-          maxLength={100}
-          onBlur={handleBlur('patientId')}
-          onChangeText={handleChange('patientId')}
-          placeholder={t('patientId')}
-          value={values.patientId}
-        />
-      </TextInputGroup>
-
-      <TextInputGroup>
         <DateInput
           editable={edit}
           label={t('birthDate')}
@@ -142,6 +135,15 @@ export default function ProfileScreen({ route, navigation }) {
       </TextInputGroup>
 
       <TextInputGroup>
+        <TextInput
+          editable={edit}
+          maxLength={100}
+          onBlur={handleBlur('patientId')}
+          onChangeText={handleChange('patientId')}
+          placeholder={t('patientId')}
+          underlineIOS
+          value={values.patientId}
+        />
         <TextInput
           editable={edit}
           maxLength={50}
@@ -159,7 +161,18 @@ export default function ProfileScreen({ route, navigation }) {
           onBlur={handleBlur('email')}
           onChangeText={handleChange('email')}
           placeholder={t('email')}
+          underlineIOS
           value={values.email}
+        />
+        <TextInput
+          editable={edit}
+          maxLength={200}
+          multiline={true}
+          numberOfLines={2}
+          onBlur={handleBlur('homeAddress')}
+          onChangeText={handleChange('homeAddress')}
+          placeholder={t('homeAddress')}
+          value={values.homeAddress}
         />
       </TextInputGroup>
 
