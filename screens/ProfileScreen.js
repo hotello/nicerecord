@@ -194,11 +194,30 @@ export default function ProfileScreen({ route, navigation }) {
           value={values.notes}
         />
       </TextInputGroup>
+
+      {edit && patient && (
+        <TextInputGroup style={styles.delete}>
+          <Button
+            title={t('deletePatient')}
+            onPress={() =>
+              db
+                .remove(patient._id, patient._rev)
+                .then(() => navigation.navigate('MyPatients'))
+                .catch(console.error)
+            }
+          />
+        </TextInputGroup>
+      )}
     </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
+  delete: {
+    alignItems: 'flex-start',
+    paddingHorizontal: Sizes.unit,
+    paddingVertical: Sizes.unit,
+  },
   done: {
     marginRight: Sizes.edge,
   },
