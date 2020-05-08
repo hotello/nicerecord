@@ -3,11 +3,12 @@ import { useFormik } from 'formik';
 import * as pouchCollate from 'pouchdb-collate';
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
-import { Image, ScrollView, StyleSheet, View } from 'react-native';
+import { ScrollView, StyleSheet, View } from 'react-native';
 import * as Yup from 'yup';
 
 import { Colors, Sizes } from '../constants';
 import {
+  Avatar,
   Button,
   DateInput,
   IconButton,
@@ -94,8 +95,12 @@ export default function ProfileScreen({ route, navigation }) {
   return (
     <ScrollView style={styles.screen}>
       <TextInputGroup style={styles.pictureContainer}>
-        <Image source={{ uri: PATIENT.picture }} style={styles.picture} />
-        {edit && <Button title={t('setPicture')} />}
+        <Avatar
+          rounded
+          title={`${values.lastName} ${values.firstName}`}
+          size="large"
+          style={styles.picture}
+        />
       </TextInputGroup>
 
       <TextInputGroup>

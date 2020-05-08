@@ -1,8 +1,8 @@
 import { format } from 'date-fns';
 import * as React from 'react';
-import { Image, SectionList, StyleSheet, View } from 'react-native';
+import { SectionList, StyleSheet, View } from 'react-native';
 
-import { Text, Touchable } from './base';
+import { Avatar, Text, Touchable } from './base';
 import { Sizes } from '../constants';
 import * as ArrayUtils from '../lib/ArrayUtils';
 
@@ -10,7 +10,7 @@ function Item({ onPress, item }) {
   return (
     <Touchable onPress={() => onPress(item)}>
       <View style={styles.item}>
-        <Image source={{ uri: item.picture }} style={styles.picture} />
+        <Avatar rounded title={item.name} style={styles.picture} />
         <View style={styles.center}>
           <Text>{item.name}</Text>
           <Text muted>{format(new Date(item.birthDate), 'PP')}</Text>
@@ -47,9 +47,6 @@ const styles = StyleSheet.create({
     paddingVertical: Sizes.unit * 2,
   },
   picture: {
-    borderRadius: (Sizes.unit * 12) / 2,
-    height: Sizes.unit * 12,
     marginHorizontal: Sizes.content,
-    width: Sizes.unit * 12,
   },
 });

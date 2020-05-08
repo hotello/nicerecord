@@ -19,6 +19,7 @@
     "faker": "^4.1.0",
     "formik": "^2.1.4",
     "i18next": "^19.4.4",
+    "initials": "^3.0.1",
     "pouchdb": "^7.2.1",
     "pouchdb-adapter-asyncstorage": "^6.4.1",
     "pouchdb-collate": "^7.2.1",
