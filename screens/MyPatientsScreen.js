@@ -24,7 +24,9 @@ export default function MyPatientsScreen({ navigation }) {
         <IconButton
           icon="person-add"
           style={styles.icon}
-          onPress={() => navigation.navigate('Profile', { edit: true })}
+          onPress={() =>
+            navigation.navigate('Profile', { edit: true, patient: null })
+          }
         />
       ),
     });
@@ -43,7 +45,7 @@ export default function MyPatientsScreen({ navigation }) {
   return (
     <View style={{ flex: 1 }}>
       <PatientList
-        onPress={() => navigation.navigate('Patient')}
+        onPress={(patient) => navigation.navigate('Patient', { patient })}
         patients={patients}
       />
     </View>

@@ -20,19 +20,23 @@ const NOTES = [...Array(100).keys()].map((id) => ({
   id: id.toString(),
 }));
 
-export default function PatientScreen({ navigation }) {
+export default function PatientScreen({ route, navigation }) {
+  const patient = route.params?.patient;
+
   React.useEffect(() => {
     navigation.setOptions({
       headerRight: () => (
         <IconButton
           icon="information-circle-outline"
-          onPress={() => navigation.navigate('Profile', { edit: false })}
+          onPress={() =>
+            navigation.navigate('Profile', { edit: false, patient: patient })
+          }
           style={styles.icon}
         />
       ),
-      title: PATIENT.name,
+      title: patient.name,
     });
-  }, []);
+  }, [patient]);
 
   return <NoteList notes={NOTES} onPress={() => {}} />;
 }

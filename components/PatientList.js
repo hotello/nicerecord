@@ -26,7 +26,7 @@ export default function PatientList({ onPress, patients }) {
     <SectionList
       initialNumToRender={20}
       sections={sections}
-      keyExtractor={(item) => item.id}
+      keyExtractor={(item) => item._id}
       renderItem={({ item }) => <Item onPress={onPress} item={item} />}
       renderSectionHeader={({ section: { title } }) => (
         <Text style={styles.header}>{title}</Text>
