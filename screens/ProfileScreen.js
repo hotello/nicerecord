@@ -72,7 +72,13 @@ export default function ProfileScreen({ route, navigation }) {
           type: 'patient',
           ...rest,
         })
-          .then(() => navigation.navigate('Profile', { edit: false }))
+          .then(({ id }) => db.get(id))
+          .then((newDoc) =>
+            navigation.navigate('Profile', {
+              edit: false,
+              patient: newDoc,
+            })
+          )
           .catch((error) => console.error(error));
       },
       validationSchema: SignupSchema,
