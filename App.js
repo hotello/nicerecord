@@ -4,6 +4,7 @@ import { Dimensions, StyleSheet, Text, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
+import NoteContext from './components/NoteContext';
 import { Colors } from './constants';
 import i18n from './i18n';
 import MyPatientsScreen from './screens/MyPatientsScreen';
@@ -26,44 +27,49 @@ const NavigationTheme = {
 };
 
 export default function App() {
+  const [note, setNoteState] = React.useState(null);
   const { t } = useTranslation();
 
-  return (
-    <View style={styles.container}>
-      <View style={styles.left}>
-        <NavigationContainer theme={NavigationTheme}>
-          <LeftStack.Navigator>
-            <LeftStack.Screen
-              name="MyPatients"
-              component={MyPatientsScreen}
-              options={{ title: t('myPatients') }}
-            />
-            <LeftStack.Screen
-              name="Patient"
-              component={PatientScreen}
-              options={{ title: t('patient') }}
-            />
-            <LeftStack.Screen
-              name="Profile"
-              component={ProfileScreen}
-              options={{ title: t('profile') }}
-            />
-          </LeftStack.Navigator>
-        </NavigationContainer>
-      </View>
+  const setNote = (note) => setNoteState(note);
 
-      <View style={styles.right}>
-        <NavigationContainer theme={NavigationTheme}>
-          <RightStack.Navigator>
-            <RightStack.Screen
-              name="Note"
-              component={NoteScreen}
-              options={{ title: t('note') }}
-            />
-          </RightStack.Navigator>
-        </NavigationContainer>
+  return (
+    <NoteContext.Provider value={{ note, setNote }}>
+      <View style={styles.container}>
+        <View style={styles.left}>
+          <NavigationContainer theme={NavigationTheme}>
+            <LeftStack.Navigator>
+              <LeftStack.Screen
+                name="MyPatients"
+                component={MyPatientsScreen}
+                options={{ title: t('myPatients') }}
+              />
+              <LeftStack.Screen
+                name="Patient"
+                component={PatientScreen}
+                options={{ title: t('patient') }}
+              />
+              <LeftStack.Screen
+                name="Profile"
+                component={ProfileScreen}
+                options={{ title: t('profile') }}
+              />
+            </LeftStack.Navigator>
+          </NavigationContainer>
+        </View>
+
+        <View style={styles.right}>
+          <NavigationContainer theme={NavigationTheme}>
+            <RightStack.Navigator>
+              <RightStack.Screen
+                name="Note"
+                component={NoteScreen}
+                options={{ title: t('note') }}
+              />
+            </RightStack.Navigator>
+          </NavigationContainer>
+        </View>
       </View>
-    </View>
+    </NoteContext.Provider>
   );
 }
 

@@ -8,9 +8,11 @@ import { Colors, Sizes } from '../constants';
 
 function Item({ item, onPress }) {
   return (
-    <Touchable>
+    <Touchable onPress={() => onPress(item)}>
       <View style={styles.item}>
-        <Text style={styles.createdAt}>{format(item.createdAt, 'PP')}</Text>
+        <Text style={styles.createdAt}>
+          {format(new Date(item.createdAt), 'PP')}
+        </Text>
         <Text>{item.content}</Text>
       </View>
     </Touchable>
@@ -22,7 +24,7 @@ export default function NoteList({ onPress, notes }) {
     <FlatList
       data={notes}
       renderItem={({ item }) => <Item item={item} onPress={onPress} />}
-      keyExtractor={(item) => item.id}
+      keyExtractor={(item) => item._id}
     />
   );
 }

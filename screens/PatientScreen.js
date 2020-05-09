@@ -3,6 +3,7 @@ import * as React from 'react';
 import { StyleSheet, View } from 'react-native';
 
 import { IconButton } from '../components/base';
+import NoteContext from '../components/NoteContext';
 import NoteList from '../components/NoteList';
 import { Sizes } from '../constants';
 import db from '../lib/db';
@@ -23,6 +24,7 @@ const NOTES = [...Array(100).keys()].map((id) => ({
 
 export default function PatientScreen({ route, navigation }) {
   const [notes, setNotes] = React.useState([]);
+  const { setNote } = React.useContext(NoteContext);
   const { patient } = route.params;
 
   React.useEffect(() => {
@@ -63,7 +65,15 @@ export default function PatientScreen({ route, navigation }) {
     };
   }, [patient._id]);
 
-  return <NoteList notes={notes} onPress={() => {}} />;
+  React.useEffect(() => {
+    setNote({ patient: patient._id });
+
+    return function () {
+      setNote(null);
+    };
+  }, [patient._id]);
+
+  return <NoteList notes={notes} onPress={(note) => setNote(note)} />;
 }
 
 const styles = StyleSheet.create({
