@@ -50,7 +50,9 @@ export default function MyPatientsScreen({ navigation }) {
 
     findPatients().then(() => changes.on('change', findPatients));
 
-    return changes.cancel;
+    return function () {
+      changes.cancel();
+    };
   }, []);
 
   return (

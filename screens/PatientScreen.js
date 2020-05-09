@@ -5,6 +5,7 @@ import { StyleSheet, View } from 'react-native';
 import { IconButton } from '../components/base';
 import NoteList from '../components/NoteList';
 import { Sizes } from '../constants';
+import db from '../lib/db';
 
 const PATIENT = {
   birthDate: faker.date.past(),
@@ -21,7 +22,8 @@ const NOTES = [...Array(100).keys()].map((id) => ({
 }));
 
 export default function PatientScreen({ route, navigation }) {
-  const patient = route.params?.patient;
+  const [notes, setNotes] = React.useState([]);
+  const { patient } = route.params;
 
   React.useEffect(() => {
     navigation.setOptions({
@@ -38,7 +40,30 @@ export default function PatientScreen({ route, navigation }) {
     });
   }, [patient]);
 
-  return <NoteList notes={NOTES} onPress={() => {}} />;
+  React.useEffect(() => {
+    const findNotes = () =>
+      db
+        .find({
+          selector: {
+            type: 'note',
+            patient: patient._id,
+          },
+        })
+        .then(({ docs }) => setNotes(docs))
+        .catch(console.error);
+    const changes = db.changes({
+      filter: (doc) => doc.type === 'note' || doc._deleted,
+      live: true,
+    });
+
+    findNotes().then(() => changes.on('change', findNotes));
+
+    return function () {
+      changes.cancel();
+    };
+  }, [patient._id]);
+
+  return <NoteList notes={notes} onPress={() => {}} />;
 }
 
 const styles = StyleSheet.create({
