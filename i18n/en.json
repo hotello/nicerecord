@@ -8,6 +8,8 @@
     "homeAddress": "Home address",
     "lastName": "Last name",
     "myPatients": "My patients",
+    "noNotes": "No notes",
+    "noPatients": "No patients",
     "note": "Note",
     "notes": "Notes",
     "writeHere": "Write here...",

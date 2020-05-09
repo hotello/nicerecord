@@ -1,5 +1,6 @@
 import format from 'date-fns/format';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { View, FlatList, StyleSheet } from 'react-native';
 import Constants from 'expo-constants';
 
@@ -19,10 +20,21 @@ function Item({ item, onPress }) {
   );
 }
 
+function ListEmptyComponent() {
+  const { t } = useTranslation();
+
+  return (
+    <View style={styles.empty}>
+      <Text muted>{t('noNotes')}</Text>
+    </View>
+  );
+}
+
 export default function NoteList({ onPress, notes }) {
   return (
     <FlatList
       data={notes}
+      ListEmptyComponent={ListEmptyComponent}
       renderItem={({ item }) => <Item item={item} onPress={onPress} />}
       keyExtractor={(item) => item._id}
     />
@@ -33,6 +45,11 @@ const styles = StyleSheet.create({
   createdAt: {
     fontWeight: 'bold',
     marginBottom: Sizes.unit * 2,
+  },
+  empty: {
+    alignItems: 'center',
+    padding: Sizes.content,
+    justifyContent: 'center',
   },
   item: {
     backgroundColor: Colors.surface,

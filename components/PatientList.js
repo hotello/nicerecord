@@ -1,5 +1,6 @@
 import format from 'date-fns/format';
 import * as React from 'react';
+import { useTranslation } from 'react-i18next';
 import { SectionList, StyleSheet, View } from 'react-native';
 
 import { Avatar, Text, Touchable } from './base';
@@ -20,6 +21,16 @@ function Item({ onPress, item }) {
   );
 }
 
+function ListEmptyComponent() {
+  const { t } = useTranslation();
+
+  return (
+    <View style={styles.empty}>
+      <Text muted>{t('noPatients')}</Text>
+    </View>
+  );
+}
+
 export default function PatientList({ onPress, patients }) {
   const sections = ArrayUtils.alphabetizeForSections(patients, 'name');
   return (
@@ -27,6 +38,7 @@ export default function PatientList({ onPress, patients }) {
       initialNumToRender={20}
       sections={sections}
       keyExtractor={(item) => item._id}
+      ListEmptyComponent={ListEmptyComponent}
       renderItem={({ item }) => <Item onPress={onPress} item={item} />}
       renderSectionHeader={({ section: { title } }) => (
         <Text style={styles.header}>{title}</Text>
@@ -36,6 +48,11 @@ export default function PatientList({ onPress, patients }) {
 }
 
 const styles = StyleSheet.create({
+  empty: {
+    alignItems: 'center',
+    padding: Sizes.content,
+    justifyContent: 'center',
+  },
   header: {
     fontWeight: 'bold',
     paddingHorizontal: Sizes.content,
