@@ -55,13 +55,6 @@ export default function PatientScreen({ route, navigation }) {
       live: true,
     });
 
-    db.allDocs({
-      descending: true,
-      endkey: `ClinicalImpression_${patient._id}_'`,
-      include_docs: true,
-      startkey: `ClinicalImpression_${patient._id}_\uffff`,
-    }).then(console.log);
-
     findNotes().then(() => changes.on('change', findNotes));
 
     return function () {

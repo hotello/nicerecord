@@ -26,7 +26,14 @@ export default React.forwardRef(function IconButton(
   ref
 ) {
   return (
-    <View style={[styles.container, primary && styles.primary, style]}>
+    <View
+      style={[
+        styles.container,
+        primary && styles.primary,
+        disabled && styles.disabled,
+        style,
+      ]}
+    >
       <Touchable
         disabled={disabled}
         onPress={onPress}
@@ -37,7 +44,7 @@ export default React.forwardRef(function IconButton(
         <Ionicons
           name={`${Platform.OS === 'android' ? 'md' : 'ios'}-${icon}`}
           size={26}
-          color={primary ? 'white' : color}
+          color={disabled ? Colors.muted : primary ? 'white' : color}
           style={styles.icon}
         />
       </Touchable>
@@ -49,6 +56,9 @@ const styles = StyleSheet.create({
   container: {
     borderRadius: Sizes.unit * 100,
     overflow: 'hidden',
+    backgroundColor: 'transparent',
+  },
+  disabled: {
     backgroundColor: 'transparent',
   },
   icon: {
