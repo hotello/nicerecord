@@ -12,16 +12,27 @@ export default function PatientScreen({ route, navigation }) {
   const { setNote } = React.useContext(NoteContext);
   const { patient } = route.params;
 
+  const newNote = () =>
+    setNote({ subject: { reference: patient._id, type: 'Patient' } });
+
   React.useEffect(() => {
     navigation.setOptions({
       headerRight: () => (
-        <IconButton
-          icon="information-circle-outline"
-          onPress={() =>
-            navigation.navigate('Profile', { edit: false, patient: patient })
-          }
-          style={styles.icon}
-        />
+        <View style={styles.headerRight}>
+          <IconButton
+            icon="information-circle-outline"
+            onPress={() =>
+              navigation.navigate('Profile', { edit: false, patient: patient })
+            }
+            style={styles.icon}
+          />
+          <IconButton
+            icon="add"
+            onPress={() => newNote()}
+            primary
+            style={styles.icon}
+          />
+        </View>
       ),
       title: patient.name.text,
     });
@@ -44,6 +55,13 @@ export default function PatientScreen({ route, navigation }) {
       live: true,
     });
 
+    db.allDocs({
+      descending: true,
+      endkey: `ClinicalImpression_${patient._id}_'`,
+      include_docs: true,
+      startkey: `ClinicalImpression_${patient._id}_\uffff`,
+    }).then(console.log);
+
     findNotes().then(() => changes.on('change', findNotes));
 
     return function () {
@@ -52,7 +70,7 @@ export default function PatientScreen({ route, navigation }) {
   }, [patient._id]);
 
   React.useEffect(() => {
-    setNote({ subject: { reference: patient._id, type: 'Patient' } });
+    newNote();
 
     return function () {
       setNote(null);
@@ -63,8 +81,13 @@ export default function PatientScreen({ route, navigation }) {
 }
 
 const styles = StyleSheet.create({
+  headerRight: {
+    flexDirection: 'row',
+  },
   icon: {
     marginRight: Sizes.edge,
   },
-  screen: { flex: 1 },
+  screen: {
+    flex: 1,
+  },
 });
