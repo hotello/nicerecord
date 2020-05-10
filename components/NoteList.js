@@ -11,10 +11,8 @@ function Item({ item, onPress }) {
   return (
     <Touchable onPress={() => onPress(item)}>
       <View style={styles.item}>
-        <Text style={styles.createdAt}>
-          {format(new Date(item.createdAt), 'PP')}
-        </Text>
-        <Text>{item.content}</Text>
+        <Text style={styles.date}>{format(new Date(item.date), 'PP')}</Text>
+        <Text>{item.summary}</Text>
       </View>
     </Touchable>
   );
@@ -42,7 +40,7 @@ export default function NoteList({ onPress, notes }) {
 }
 
 const styles = StyleSheet.create({
-  createdAt: {
+  date: {
     fontWeight: 'bold',
     marginBottom: Sizes.unit * 2,
   },

@@ -1,4 +1,3 @@
-import * as faker from 'faker';
 import * as React from 'react';
 import { StyleSheet, View } from 'react-native';
 
@@ -7,14 +6,6 @@ import PatientList from '../components/PatientList';
 import db from '../lib/db';
 
 import { Sizes } from '../constants';
-
-const PATIENTS = [...Array(100).keys()].map((id) => ({
-  birthDate: faker.date.past(),
-  id: id,
-  name: faker.fake('{{name.lastName}} {{name.firstName}}'),
-  phoneNumber: faker.phone.phoneNumber(),
-  picture: faker.image.avatar(),
-}));
 
 export default function MyPatientsScreen({ navigation }) {
   const [patients, setPatients] = React.useState([]);
@@ -36,15 +27,15 @@ export default function MyPatientsScreen({ navigation }) {
   React.useEffect(() => {
     const findPatients = () =>
       db
-        .find({
-          selector: {
-            type: 'patient',
-          },
+        .allDocs({
+          startkey: 'Patient_',
+          endkey: 'Patient_\uffff',
+          include_docs: true,
         })
-        .then(({ docs }) => setPatients(docs))
+        .then(({ rows }) => setPatients(rows.map(({ doc }) => doc)))
         .catch(console.error);
     const changes = db.changes({
-      filter: (doc) => doc.type === 'patient' || doc._deleted,
+      filter: (doc) => doc.resourceType === 'Patient' || doc._deleted,
       live: true,
     });
 

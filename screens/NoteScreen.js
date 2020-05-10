@@ -11,49 +11,72 @@ import NoteContext from '../components/NoteContext';
 import db from '../lib/db';
 import useDebounce from '../lib/useDebounce';
 
+const generateId = ({ date, subject }) =>
+  `ClinicalImpression_${subject.reference}_${format(date, 'Y_M_d_t')}`;
+
+const putNote = ({ date, summary, subject, ...rest }) => {
+  if (typeof date === 'string') {
+    date = new Date(date);
+  }
+
+  return db.put({
+    ...rest,
+    _id: generateId({ subject, date }),
+    date: date.toISOString(),
+    subject: {
+      reference: subject.reference,
+      type: 'Patient',
+    },
+    status: 'in-progress',
+    summary: summary,
+    resourceType: 'ClinicalImpression',
+  });
+};
+
 export default function NoteScreen({ navigation }) {
   const { t } = useTranslation();
   const { note: externalNote, setNote: setExternalNote } = React.useContext(
     NoteContext
   );
   const [note, setNote] = React.useState({});
-  const [content, setContent] = React.useState('');
-  const debouncedContent = useDebounce(content, 1000);
+  const [summary, setSummary] = React.useState('');
+  const debouncedSummary = useDebounce(summary, 1000);
 
   // Replace internal note state when external note changes
   React.useEffect(() => {
-    setNote(externalNote || {});
-    if (externalNote?.content) {
-      setContent(externalNote.content);
+    if (externalNote) {
+      setNote(externalNote);
+      setSummary(externalNote?.summary || '');
     } else {
-      setContent('');
+      setNote({});
+      setSummary('');
     }
   }, [externalNote]);
 
   // Generate a new note _id when no _id is given
   React.useEffect(() => {
-    if (note.patient && !note._id) {
-      const createdAt = new Date();
+    if (note.subject && !note._id) {
+      const date = new Date();
       setNote({
         ...note,
-        _id: pouchCollate.toIndexableString([note.patient, createdAt]),
-        createdAt: createdAt,
+        _id: generateId({ date, subject: note.subject }),
+        date: date,
       });
     }
-  }, [note._id, note.patient]);
+  }, [note._id, note.subject]);
 
   React.useEffect(() => {
-    const createdAt = note.createdAt ? new Date(note.createdAt) : new Date();
+    const date = note.date ? new Date(note.date) : new Date();
     navigation.setOptions({
       headerRight: () => (
         <IconButton
-          disabled={!note._id || !note.patient}
+          disabled={!note._id || !note.subject}
           onPress={() =>
             db
               .remove(note._id, note._rev)
               .then(() => {
-                setNote({ patient: note.patient });
-                setContent('');
+                setNote({ subject: note.subject });
+                setSummary('');
               })
               .catch(console.error)
           }
@@ -61,35 +84,28 @@ export default function NoteScreen({ navigation }) {
           style={styles.icon}
         />
       ),
-      title: note && note.createdAt ? format(createdAt, 'PP') : t('note'),
+      title: note && note.date ? format(date, 'PP') : t('note'),
     });
   }, [note]);
 
-  // Save note when content changes
+  // Save note when summary changes
   React.useEffect(() => {
-    if (note._id && note.patient && debouncedContent.length > 0) {
-      db.put({
-        _id: note._id,
-        _rev: note._rev,
-        content: debouncedContent,
-        createdAt: note.createdAt,
-        patient: note.patient,
-        type: 'note',
-      })
+    if (note._id && note.subject && debouncedSummary.length > 0) {
+      putNote({ ...note, summary: debouncedSummary })
         .then(({ rev: newRev }) => setNote({ ...note, _rev: newRev }))
         .catch(console.error);
     }
-  }, [debouncedContent]);
+  }, [debouncedSummary]);
 
   return (
     <View style={styles.screen}>
       <TextInput
-        disabled={!note.patient}
+        disabled={!note?.subject}
         multiline
-        onChangeText={(text) => setContent(text)}
+        onChangeText={(text) => setSummary(text)}
         placeholder={t('writeHere')}
         style={styles.input}
-        value={content}
+        value={summary}
       />
     </View>
   );

@@ -1,5 +1,5 @@
 import sub from 'date-fns/sub';
-import * as faker from 'faker';
+import format from 'date-fns/format';
 import { useFormik } from 'formik';
 import * as pouchCollate from 'pouchdb-collate';
 import * as React from 'react';
@@ -18,25 +18,83 @@ import {
 } from '../components/base';
 import db from '../lib/db';
 
-const PATIENT = {
-  birthDate: faker.date.past(),
-  id: 1,
-  name: faker.fake('{{name.lastName}} {{name.firstName}}'),
-  phoneNumber: faker.phone.phoneNumber(),
-  picture: faker.image.avatar(),
-};
-
 const SignupSchema = Yup.object().shape({
   birthDate: Yup.date()
     .max(sub(new Date(), { days: 1 }))
     .required(),
   email: Yup.string().max(150).email(),
-  firstName: Yup.string().max(50).required(),
-  lastName: Yup.string().max(50).required(),
+  givenName: Yup.string().max(50).required(),
+  familyName: Yup.string().max(50).required(),
   notes: Yup.string().max(10000),
-  patientId: Yup.string().max(100),
-  phoneNumber: Yup.string().max(50),
+  genericIdentifier: Yup.string().max(100),
+  phone: Yup.string().max(50),
 });
+
+const createPatient = ({
+  birthDate,
+  email,
+  familyName,
+  genericIdentifier,
+  givenName,
+  homeAddress,
+  notes,
+  phone,
+  ...rest
+}) => {
+  if (typeof birthDate === 'string') {
+    birthDate = new Date(birthDate);
+  }
+
+  const patient = {
+    ...rest,
+    _id: `Patient_${familyName}_${givenName}_${format(birthDate, 'Y_M_d')}`,
+    birthDate: format(birthDate, 'Y-M-d'),
+    name: {
+      family: familyName,
+      given: givenName.split(' '),
+      text: `${familyName} ${givenName}`,
+    },
+    resourceType: 'Patient',
+  };
+
+  if (email?.length > 0 || phone?.length > 0) {
+    patient.telecom = [];
+  }
+  if (email?.length > 0) {
+    patient.telecom.push({
+      system: 'email',
+      value: email,
+    });
+  }
+  if (genericIdentifier?.length > 0) {
+    patient.identifier = [
+      {
+        use: 'usual',
+        value: genericIdentifier,
+      },
+    ];
+  }
+  if (homeAddress?.length > 0) {
+    patient.address = [
+      {
+        text: homeAddress,
+        type: 'both',
+        use: 'home',
+      },
+    ];
+  }
+  if (notes?.length > 0) {
+    patient.notes = notes;
+  }
+  if (phone?.length > 0) {
+    patient.telecom.push({
+      system: 'phone',
+      value: phone,
+    });
+  }
+
+  return db.put(patient);
+};
 
 export default function ProfileScreen({ route, navigation }) {
   const { t } = useTranslation();
@@ -50,28 +108,22 @@ export default function ProfileScreen({ route, navigation }) {
         birthDate: patient?.birthDate
           ? new Date(patient.birthDate)
           : new Date(),
-        email: patient?.email || '',
-        firstName: patient?.firstName || '',
-        homeAddress: patient?.homeAddress || '',
-        lastName: patient?.lastName || '',
+        email:
+          patient?.telecom?.find(({ system }) => system === 'email')?.value ||
+          '',
+        givenName: patient?.name?.given.join(' ') || '',
+        homeAddress:
+          patient?.address?.find(({ use }) => use === 'home')?.text || '',
+        familyName: patient?.name.family || '',
         notes: patient?.notes || '',
-        patientId: patient?.patientId || '',
-        phoneNumber: patient?.phoneNumber || '',
+        genericIdentifier:
+          patient?.identifier?.find(({ use }) => use === 'usual')?.value || '',
+        phone:
+          patient?.telecom?.find(({ system }) => system === 'phone')?.value ||
+          '',
       },
-      onSubmit: ({ _rev, birthDate, firstName, lastName, ...rest }) => {
-        if (typeof birthDate === 'string') {
-          birthDate = new Date(birthDate);
-        }
-        db.put({
-          _id: pouchCollate.toIndexableString([lastName, firstName, birthDate]),
-          _rev: _rev,
-          birthDate: birthDate,
-          firstName: firstName,
-          lastName: lastName,
-          name: `${lastName} ${firstName}`,
-          type: 'patient',
-          ...rest,
-        })
+      onSubmit: (values) => {
+        createPatient(values)
           .then(({ id }) => db.get(id))
           .then((newDoc) =>
             navigation.navigate('Profile', {
@@ -79,7 +131,7 @@ export default function ProfileScreen({ route, navigation }) {
               patient: newDoc,
             })
           )
-          .catch((error) => console.error(error));
+          .catch(console.error);
       },
       validationSchema: SignupSchema,
     }
@@ -113,7 +165,7 @@ export default function ProfileScreen({ route, navigation }) {
       <TextInputGroup style={styles.pictureContainer}>
         <Avatar
           rounded
-          title={`${values.lastName} ${values.firstName}`}
+          title={`${values.familyName} ${values.givenName}`}
           size="large"
           style={styles.picture}
         />
@@ -121,22 +173,22 @@ export default function ProfileScreen({ route, navigation }) {
 
       <TextInputGroup>
         <TextInput
-          editable={edit && !patient?.firstName}
+          editable={edit && !patient?.givenName}
           maxLength={50}
-          onBlur={handleBlur('firstName')}
-          onChangeText={handleChange('firstName')}
+          onBlur={handleBlur('givenName')}
+          onChangeText={handleChange('givenName')}
           placeholder={t('firstName')}
           underlineIOS
-          value={values.firstName}
+          value={values.givenName}
         />
         <TextInput
-          editable={edit && !patient?.lastName}
+          editable={edit && !patient?.familyName}
           maxLength={50}
-          onBlur={handleBlur('lastName')}
-          onChangeText={handleChange('lastName')}
+          onBlur={handleBlur('familyName')}
+          onChangeText={handleChange('familyName')}
           placeholder={t('lastName')}
           underlineIOS
-          value={values.lastName}
+          value={values.familyName}
         />
         <DateInput
           editable={edit && !patient?.birthDate}
@@ -150,21 +202,21 @@ export default function ProfileScreen({ route, navigation }) {
         <TextInput
           editable={edit}
           maxLength={100}
-          onBlur={handleBlur('patientId')}
-          onChangeText={handleChange('patientId')}
+          onBlur={handleBlur('genericIdentifier')}
+          onChangeText={handleChange('genericIdentifier')}
           placeholder={t('patientId')}
           underlineIOS
-          value={values.patientId}
+          value={values.genericIdentifier}
         />
         <TextInput
           editable={edit}
           maxLength={50}
           keyboardType="phone-pad"
-          onBlur={handleBlur('phoneNumber')}
-          onChangeText={handleChange('phoneNumber')}
+          onBlur={handleBlur('phone')}
+          onChangeText={handleChange('phone')}
           placeholder={t('phoneNumber')}
           underlineIOS
-          value={values.phoneNumber}
+          value={values.phone}
         />
         <TextInput
           editable={edit}

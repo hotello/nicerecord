@@ -5,15 +5,47 @@ import { SectionList, StyleSheet, View } from 'react-native';
 
 import { Avatar, Text, Touchable } from './base';
 import { Sizes } from '../constants';
-import * as ArrayUtils from '../lib/ArrayUtils';
+
+const alphabetize = (rawData) => {
+  // Since data at this point is an object, to get array of values
+  // we use Object.values method
+  if (rawData.length < 1) {
+    return [];
+  }
+
+  return Object.values(
+    rawData
+      // Order by provided key all objects in the array
+      .sort(function (a, b) {
+        // Ensure function is not case sensitive
+        const keyA = a.name.text.toUpperCase();
+        const keyB = b.name.text.toUpperCase();
+        // Order by provided key
+        if (keyA < keyB) return -1;
+        if (keyA > keyB) return 1;
+        return 0;
+      })
+      // Group by first letter
+      .reduce((r, e) => {
+        // Get first letter of name of current element
+        let title = e.name.text[0];
+        // If there is no property in accumulator with this letter create it
+        if (!r[title]) r[title] = { title, data: [e] };
+        // If there is push current element to data array for that letter
+        else r[title].data.push(e);
+        // Return accumulator
+        return r;
+      }, {})
+  );
+};
 
 function Item({ onPress, item }) {
   return (
     <Touchable onPress={() => onPress(item)}>
       <View style={styles.item}>
-        <Avatar rounded title={item.name} style={styles.picture} />
+        <Avatar rounded title={item.name.text} style={styles.picture} />
         <View style={styles.center}>
-          <Text>{item.name}</Text>
+          <Text>{item.name.text}</Text>
           <Text muted>{format(new Date(item.birthDate), 'PP')}</Text>
         </View>
       </View>
@@ -32,7 +64,8 @@ function ListEmptyComponent() {
 }
 
 export default function PatientList({ onPress, patients }) {
-  const sections = ArrayUtils.alphabetizeForSections(patients, 'name');
+  const sections = alphabetize(patients);
+
   return (
     <SectionList
       initialNumToRender={20}
