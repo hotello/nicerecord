@@ -173,15 +173,6 @@ export default function ProfileScreen({ route, navigation }) {
 
       <TextInputGroup>
         <TextInput
-          editable={edit && !patient?.givenName}
-          maxLength={50}
-          onBlur={handleBlur('givenName')}
-          onChangeText={handleChange('givenName')}
-          placeholder={t('firstName')}
-          underlineIOS
-          value={values.givenName}
-        />
-        <TextInput
           editable={edit && !patient?.familyName}
           maxLength={50}
           onBlur={handleBlur('familyName')}
@@ -189,6 +180,15 @@ export default function ProfileScreen({ route, navigation }) {
           placeholder={t('lastName')}
           underlineIOS
           value={values.familyName}
+        />
+        <TextInput
+          editable={edit && !patient?.givenName}
+          maxLength={50}
+          onBlur={handleBlur('givenName')}
+          onChangeText={handleChange('givenName')}
+          placeholder={t('firstName')}
+          underlineIOS
+          value={values.givenName}
         />
         <DateInput
           editable={edit && !patient?.birthDate}
