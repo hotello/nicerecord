@@ -41,8 +41,6 @@ const alphabetize = (rawData) => {
 };
 
 function Item({ onPress, item }) {
-  console.log(item.birthDate);
-  console.log(parseISO(item.birthDate));
   return (
     <Touchable onPress={() => onPress(item)}>
       <View style={styles.item}>
