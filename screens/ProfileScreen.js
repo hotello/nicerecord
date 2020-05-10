@@ -291,7 +291,6 @@ const styles = StyleSheet.create({
   },
   pictureContainer: {
     alignItems: 'center',
-    backgroundColor: Colors.surface,
     paddingVertical: Sizes.content,
   },
   screen: {

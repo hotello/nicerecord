@@ -106,6 +106,7 @@ export default function NoteScreen({ navigation }) {
         onChangeText={(text) => setSummary(text)}
         placeholder={t('writeHere')}
         style={styles.input}
+        textAlignVertical={'top'}
         value={summary}
       />
     </View>
@@ -117,7 +118,6 @@ const styles = StyleSheet.create({
     marginRight: Sizes.edge,
   },
   input: {
-    alignItems: 'flex-start',
     flex: 1,
     fontSize: Sizes.text,
   },
