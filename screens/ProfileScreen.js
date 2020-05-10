@@ -1,5 +1,5 @@
 import sub from 'date-fns/sub';
-import format from 'date-fns/format';
+import formatISO from 'date-fns/formatISO';
 import { useFormik } from 'formik';
 import * as pouchCollate from 'pouchdb-collate';
 import * as React from 'react';
@@ -44,11 +44,14 @@ const createPatient = ({
   if (typeof birthDate === 'string') {
     birthDate = new Date(birthDate);
   }
+  const birthDateISO = formatISO(birthDate, {
+    representation: 'date',
+  });
 
   const patient = {
     ...rest,
-    _id: `Patient_${familyName}_${givenName}_${format(birthDate, 'Y_M_d')}`,
-    birthDate: format(birthDate, 'Y-M-d'),
+    _id: `Patient_${familyName}_${givenName}_${birthDateISO}`,
+    birthDate: birthDateISO,
     name: {
       family: familyName,
       given: givenName.split(' '),

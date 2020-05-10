@@ -1,4 +1,5 @@
 import format from 'date-fns/format';
+import formatISO from 'date-fns/formatISO';
 import * as faker from 'faker';
 import * as pouchCollate from 'pouchdb-collate';
 import * as React from 'react';
@@ -12,7 +13,7 @@ import db from '../lib/db';
 import useDebounce from '../lib/useDebounce';
 
 const generateId = ({ date, subject }) =>
-  `ClinicalImpression_${subject.reference}_${format(date, 'Y_M_d_t')}`;
+  `ClinicalImpression_${subject.reference}_${formatISO(date)}`;
 
 const putNote = ({ date, summary, subject, ...rest }) => {
   if (typeof date === 'string') {
@@ -22,7 +23,7 @@ const putNote = ({ date, summary, subject, ...rest }) => {
   return db.put({
     ...rest,
     _id: generateId({ subject, date }),
-    date: date.toISOString(),
+    date: formatISO(date),
     subject: {
       reference: subject.reference,
       type: 'Patient',
