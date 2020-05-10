@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { StyleSheet, View } from 'react-native';
+import { useIsFocused } from '@react-navigation/native';
 
 import { IconButton } from '../components/base';
 import PatientList from '../components/PatientList';
@@ -9,6 +10,7 @@ import { Sizes } from '../constants';
 
 export default function MyPatientsScreen({ navigation }) {
   const [patients, setPatients] = React.useState([]);
+  const isFocused = useIsFocused();
 
   React.useEffect(() => {
     navigation.setOptions({
@@ -44,7 +46,7 @@ export default function MyPatientsScreen({ navigation }) {
     return function () {
       changes.cancel();
     };
-  }, []);
+  }, [isFocused]);
 
   return (
     <View style={{ flex: 1 }}>
