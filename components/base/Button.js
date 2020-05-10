@@ -89,6 +89,6 @@ const styles = StyleSheet.create({
   },
   buttonDisabled: {},
   textDisabled: {
-    color: '#cdcdcd',
+    color: Colors.muted,
   },
 });

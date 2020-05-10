@@ -240,6 +240,7 @@ export default function ProfileScreen({ route, navigation }) {
           onBlur={handleBlur('homeAddress')}
           onChangeText={handleChange('homeAddress')}
           placeholder={t('homeAddress')}
+          textAlignVertical={'top'}
           value={values.homeAddress}
         />
       </TextInputGroup>
@@ -253,6 +254,7 @@ export default function ProfileScreen({ route, navigation }) {
           onBlur={handleBlur('notes')}
           onChangeText={handleChange('notes')}
           placeholder={t('notes')}
+          textAlignVertical={'top'}
           value={values.notes}
         />
       </TextInputGroup>
