@@ -101,41 +101,42 @@ export default function ProfileScreen({ route, navigation }) {
   const edit = route.params?.edit;
   const patient = route.params?.patient;
 
-  const { handleBlur, handleChange, handleSubmit, isValid, values } = useFormik(
-    {
-      initialValues: {
-        _rev: patient?._rev,
-        birthDate: patient?.birthDate
-          ? new Date(patient.birthDate)
-          : new Date(),
-        email:
-          patient?.telecom?.find(({ system }) => system === 'email')?.value ||
-          '',
-        givenName: patient?.name?.given.join(' ') || '',
-        homeAddress:
-          patient?.address?.find(({ use }) => use === 'home')?.text || '',
-        familyName: patient?.name.family || '',
-        notes: patient?.notes || '',
-        genericIdentifier:
-          patient?.identifier?.find(({ use }) => use === 'usual')?.value || '',
-        phone:
-          patient?.telecom?.find(({ system }) => system === 'phone')?.value ||
-          '',
-      },
-      onSubmit: (values) => {
-        createPatient(values)
-          .then(({ id }) => db.get(id))
-          .then((newDoc) =>
-            navigation.navigate('Profile', {
-              edit: false,
-              patient: newDoc,
-            })
-          )
-          .catch(console.error);
-      },
-      validationSchema: SignupSchema,
-    }
-  );
+  const {
+    handleBlur,
+    handleChange,
+    handleSubmit,
+    isValid,
+    setFieldValue,
+    values,
+  } = useFormik({
+    initialValues: {
+      _rev: patient?._rev,
+      birthDate: patient?.birthDate ? new Date(patient.birthDate) : new Date(),
+      email:
+        patient?.telecom?.find(({ system }) => system === 'email')?.value || '',
+      givenName: patient?.name?.given.join(' ') || '',
+      homeAddress:
+        patient?.address?.find(({ use }) => use === 'home')?.text || '',
+      familyName: patient?.name.family || '',
+      notes: patient?.notes || '',
+      genericIdentifier:
+        patient?.identifier?.find(({ use }) => use === 'usual')?.value || '',
+      phone:
+        patient?.telecom?.find(({ system }) => system === 'phone')?.value || '',
+    },
+    onSubmit: (values) => {
+      createPatient(values)
+        .then(({ id }) => db.get(id))
+        .then((newDoc) =>
+          navigation.navigate('Profile', {
+            edit: false,
+            patient: newDoc,
+          })
+        )
+        .catch(console.error);
+    },
+    validationSchema: SignupSchema,
+  });
 
   React.useEffect(() => {
     navigation.setOptions({
@@ -193,7 +194,7 @@ export default function ProfileScreen({ route, navigation }) {
         <DateInput
           editable={edit && !patient?.birthDate}
           label={t('birthDate')}
-          onChange={handleChange('birthDate')}
+          onChange={(date) => setFieldValue('birthDate', date)}
           value={values.birthDate}
         />
       </TextInputGroup>

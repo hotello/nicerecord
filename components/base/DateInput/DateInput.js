@@ -15,7 +15,7 @@ export default function DateInput(
 
   const onChangeInternal = (event, selectedDate) => {
     setShow(Platform.OS === 'ios');
-    onChange(event, selectedDate);
+    onChange(selectedDate);
   };
 
   const togglePicker = () => setShow(!show);

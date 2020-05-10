@@ -9,13 +9,16 @@ export default function DateInput(
   { editable, label, onChange = () => {}, value, ...props },
   ref
 ) {
+  const onChangeInternal = (event) => {
+    onChange(event.target.value);
+  };
   return (
     <View style={styles.content}>
       <Text>{label}</Text>
       <View>
         <input
           disabled={!editable}
-          onChange={onChange}
+          onChange={onChangeInternal}
           type="date"
           value={
             value.toISOString ? value.toISOString().substring(0, 10) : value
