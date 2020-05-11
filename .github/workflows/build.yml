@@ -20,7 +20,9 @@ jobs:
           node-version: 10
 
       - name: Package app for Electron
-        run: yarn electron-webpack
+        run: |
+          yarn install --production=false
+          yarn electron-webpack
 
       - name: Build/release Electron app
         uses: samuelmeuli/action-electron-builder@v1
