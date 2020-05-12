@@ -1,6 +1,7 @@
 {
   "name": "hipponote",
   "version": "0.0.7",
+  "author": "Fabio Romita",
   "main": "node_modules/expo/AppEntry.js",
   "scripts": {
     "start": "expo start",
@@ -72,7 +73,10 @@
       "**/node_modules/**/*"
     ],
     "win": {
-      "target": "appx"
+      "target": [
+        "nsis",
+        "appx"
+      ]
     }
   }
 }
