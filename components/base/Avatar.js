@@ -16,17 +16,16 @@ const avatarSizes = {
   xlarge: 146,
 };
 const bgColors = [
-  '#9e2b25',
-  '#51355a',
-  '#241e4e',
-  '#ce6c47',
-  '#ffd046',
-  '#eadaa2',
-  '#f52f57',
-  '#f79d5c',
-  '#f3752b',
-  '#5bc0eb',
-  '#9bc53d',
+  '#623ceaff',
+  '#ff934fff',
+  '#d972ffff',
+  '#8cffdaff',
+  '#1b1f3bff',
+  '#e6c229ff',
+  '#00a5e0ff',
+  '#ce2d4fff',
+  '#9c89b8ff',
+  '#ceec97ff',
 ];
 
 const sumChars = (str) => {

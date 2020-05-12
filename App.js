@@ -41,7 +41,10 @@ export default function App() {
               <LeftStack.Screen
                 name="MyPatients"
                 component={MyPatientsScreen}
-                options={{ title: t('myPatients') }}
+                options={{
+                  title: t('myPatients'),
+                  cardStyle: { backgroundColor: Colors.surface },
+                }}
               />
               <LeftStack.Screen
                 name="Patient"
