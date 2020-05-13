@@ -87,7 +87,10 @@ const createPatient = ({
     ];
   }
   if (notes?.length > 0) {
-    patient.notes = notes;
+    patient.text = {
+      status: 'additional',
+      div: notes,
+    };
   }
   if (phone?.length > 0) {
     patient.telecom.push({
@@ -121,7 +124,7 @@ export default function ProfileScreen({ route, navigation }) {
       homeAddress:
         patient?.address?.find(({ use }) => use === 'home')?.text || '',
       familyName: patient?.name.family || '',
-      notes: patient?.notes || '',
+      notes: patient?.text?.div || '',
       genericIdentifier:
         patient?.identifier?.find(({ use }) => use === 'usual')?.value || '',
       phone:
