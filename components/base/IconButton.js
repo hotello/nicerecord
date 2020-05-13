@@ -14,7 +14,7 @@ import { Colors, Sizes } from '../../constants';
 
 export default React.forwardRef(function IconButton(
   {
-    color = Colors.secondary,
+    color = Colors.primary,
     disabled,
     icon,
     onPress,

@@ -9,7 +9,7 @@ export default React.forwardRef(function TextInput(
     disabledUnderlineAndroid,
 
     placeholderTextColor = Colors.muted,
-    selectionColor = Colors.secondary,
+    selectionColor = Colors.primary,
     style,
     underlineIOS,
     ...props
