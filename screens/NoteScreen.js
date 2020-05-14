@@ -4,7 +4,14 @@ import * as faker from 'faker';
 import * as pouchCollate from 'pouchdb-collate';
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
-import { StyleSheet, TextInput, View } from 'react-native';
+import {
+  KeyboardAvoidingView,
+  Platform,
+  StyleSheet,
+  TextInput,
+  View,
+} from 'react-native';
+import { useHeaderHeight } from '@react-navigation/stack';
 
 import { Colors, Sizes } from '../constants';
 import { IconButton } from '../components/base';
@@ -36,6 +43,7 @@ const putNote = ({ date, summary, subject, ...rest }) => {
 
 export default function NoteScreen({ navigation }) {
   const { t } = useTranslation();
+  const headerHeight = useHeaderHeight();
   const { note: externalNote, setNote: setExternalNote } = React.useContext(
     NoteContext
   );
@@ -99,7 +107,11 @@ export default function NoteScreen({ navigation }) {
   }, [debouncedSummary]);
 
   return (
-    <View style={styles.screen}>
+    <KeyboardAvoidingView
+      behavior={Platform.OS == 'ios' ? 'padding' : 'height'}
+      keyboardVerticalOffset={headerHeight}
+      style={styles.screen}
+    >
       <TextInput
         disabled={!note?.subject}
         multiline
@@ -109,7 +121,7 @@ export default function NoteScreen({ navigation }) {
         textAlignVertical={'top'}
         value={summary}
       />
-    </View>
+    </KeyboardAvoidingView>
   );
 }
 

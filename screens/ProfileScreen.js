@@ -4,8 +4,15 @@ import { useFormik } from 'formik';
 import * as pouchCollate from 'pouchdb-collate';
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
-import { ScrollView, StyleSheet, View } from 'react-native';
+import {
+  KeyboardAvoidingView,
+  Platform,
+  ScrollView,
+  StyleSheet,
+  View,
+} from 'react-native';
 import * as Yup from 'yup';
+import { useHeaderHeight } from '@react-navigation/stack';
 
 import { Colors, Sizes } from '../constants';
 import {
@@ -104,6 +111,7 @@ const createPatient = ({
 
 export default function ProfileScreen({ route, navigation }) {
   const { t } = useTranslation();
+  const headerHeight = useHeaderHeight();
   const edit = route.params?.edit;
   const patient = route.params?.patient;
 
@@ -168,114 +176,119 @@ export default function ProfileScreen({ route, navigation }) {
   }, [route.params, isValid]);
 
   return (
-    <ScrollView style={styles.screen}>
-      <TextInputGroup style={styles.pictureContainer}>
-        <Avatar
-          rounded
-          title={`${values.familyName} ${values.givenName}`}
-          size="large"
-          style={styles.picture}
-        />
-      </TextInputGroup>
-
-      <TextInputGroup>
-        <TextInput
-          editable={edit && !patient?.familyName}
-          maxLength={50}
-          onBlur={handleBlur('familyName')}
-          onChangeText={handleChange('familyName')}
-          placeholder={t('lastName')}
-          underlineIOS
-          value={values.familyName}
-        />
-        <TextInput
-          editable={edit && !patient?.givenName}
-          maxLength={50}
-          onBlur={handleBlur('givenName')}
-          onChangeText={handleChange('givenName')}
-          placeholder={t('firstName')}
-          underlineIOS
-          value={values.givenName}
-        />
-        <DateInput
-          editable={edit && !patient?.birthDate}
-          label={t('birthDate')}
-          onChange={(date) => setFieldValue('birthDate', date)}
-          value={values.birthDate}
-        />
-      </TextInputGroup>
-
-      <TextInputGroup>
-        <TextInput
-          editable={edit}
-          maxLength={100}
-          onBlur={handleBlur('genericIdentifier')}
-          onChangeText={handleChange('genericIdentifier')}
-          placeholder={t('patientId')}
-          underlineIOS
-          value={values.genericIdentifier}
-        />
-        <TextInput
-          editable={edit}
-          maxLength={50}
-          keyboardType="phone-pad"
-          onBlur={handleBlur('phone')}
-          onChangeText={handleChange('phone')}
-          placeholder={t('phoneNumber')}
-          underlineIOS
-          value={values.phone}
-        />
-        <TextInput
-          editable={edit}
-          maxLength={150}
-          keyboardType="email-address"
-          onBlur={handleBlur('email')}
-          onChangeText={handleChange('email')}
-          placeholder={t('email')}
-          underlineIOS
-          value={values.email}
-        />
-        <TextInput
-          editable={edit}
-          maxLength={200}
-          multiline={true}
-          numberOfLines={2}
-          onBlur={handleBlur('homeAddress')}
-          onChangeText={handleChange('homeAddress')}
-          placeholder={t('homeAddress')}
-          textAlignVertical={'top'}
-          value={values.homeAddress}
-        />
-      </TextInputGroup>
-
-      <TextInputGroup>
-        <TextInput
-          editable={edit}
-          maxLength={10000}
-          multiline={true}
-          numberOfLines={10}
-          onBlur={handleBlur('notes')}
-          onChangeText={handleChange('notes')}
-          placeholder={t('notes')}
-          textAlignVertical={'top'}
-          value={values.notes}
-        />
-      </TextInputGroup>
-
-      {edit && patient && (
-        <TextInputGroup style={styles.delete}>
-          <Button
-            title={t('deletePatient')}
-            onPress={() =>
-              db
-                .remove(patient._id, patient._rev)
-                .then(() => navigation.navigate('MyPatients'))
-                .catch(console.error)
-            }
+    <KeyboardAvoidingView
+      behavior={Platform.OS == 'ios' ? 'padding' : 'height'}
+      keyboardVerticalOffset={headerHeight}
+    >
+      <ScrollView style={styles.screen}>
+        <TextInputGroup style={styles.pictureContainer}>
+          <Avatar
+            rounded
+            title={`${values.familyName} ${values.givenName}`}
+            size="large"
+            style={styles.picture}
           />
         </TextInputGroup>
-      )}
-    </ScrollView>
+
+        <TextInputGroup>
+          <TextInput
+            editable={edit && !patient?.familyName}
+            maxLength={50}
+            onBlur={handleBlur('familyName')}
+            onChangeText={handleChange('familyName')}
+            placeholder={t('lastName')}
+            underlineIOS
+            value={values.familyName}
+          />
+          <TextInput
+            editable={edit && !patient?.givenName}
+            maxLength={50}
+            onBlur={handleBlur('givenName')}
+            onChangeText={handleChange('givenName')}
+            placeholder={t('firstName')}
+            underlineIOS
+            value={values.givenName}
+          />
+          <DateInput
+            editable={edit && !patient?.birthDate}
+            label={t('birthDate')}
+            onChange={(date) => setFieldValue('birthDate', date)}
+            value={values.birthDate}
+          />
+        </TextInputGroup>
+
+        <TextInputGroup>
+          <TextInput
+            editable={edit}
+            maxLength={100}
+            onBlur={handleBlur('genericIdentifier')}
+            onChangeText={handleChange('genericIdentifier')}
+            placeholder={t('patientId')}
+            underlineIOS
+            value={values.genericIdentifier}
+          />
+          <TextInput
+            editable={edit}
+            maxLength={50}
+            keyboardType="phone-pad"
+            onBlur={handleBlur('phone')}
+            onChangeText={handleChange('phone')}
+            placeholder={t('phoneNumber')}
+            underlineIOS
+            value={values.phone}
+          />
+          <TextInput
+            editable={edit}
+            maxLength={150}
+            keyboardType="email-address"
+            onBlur={handleBlur('email')}
+            onChangeText={handleChange('email')}
+            placeholder={t('email')}
+            underlineIOS
+            value={values.email}
+          />
+          <TextInput
+            editable={edit}
+            maxLength={200}
+            multiline={true}
+            numberOfLines={2}
+            onBlur={handleBlur('homeAddress')}
+            onChangeText={handleChange('homeAddress')}
+            placeholder={t('homeAddress')}
+            textAlignVertical={'top'}
+            value={values.homeAddress}
+          />
+        </TextInputGroup>
+
+        <TextInputGroup>
+          <TextInput
+            editable={edit}
+            maxLength={10000}
+            multiline={true}
+            numberOfLines={10}
+            onBlur={handleBlur('notes')}
+            onChangeText={handleChange('notes')}
+            placeholder={t('notes')}
+            textAlignVertical={'top'}
+            value={values.notes}
+          />
+        </TextInputGroup>
+
+        {edit && patient && (
+          <TextInputGroup style={styles.delete}>
+            <Button
+              title={t('deletePatient')}
+              onPress={() =>
+                db
+                  .remove(patient._id, patient._rev)
+                  .then(() => navigation.navigate('MyPatients'))
+                  .catch(console.error)
+              }
+            />
+          </TextInputGroup>
+        )}
+      </ScrollView>
+    </KeyboardAvoidingView>
   );
 }
 
@@ -299,7 +312,6 @@ const styles = StyleSheet.create({
     paddingVertical: Sizes.content,
   },
   screen: {
-    flex: 1,
     paddingTop: Sizes.content,
   },
 });
