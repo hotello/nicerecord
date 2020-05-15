@@ -113,7 +113,7 @@ export default function NoteScreen({ navigation }) {
       style={styles.screen}
     >
       <TextInput
-        disabled={!note?.subject}
+        editable={!!note?.subject}
         multiline
         onChangeText={(text) => setSummary(text)}
         placeholder={t('writeHere')}

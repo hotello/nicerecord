@@ -26,20 +26,20 @@ export default React.forwardRef(function IconButton(
   ref
 ) {
   return (
-    <View
-      style={[
-        styles.container,
-        primary && styles.primary,
-        disabled && styles.disabled,
-        style,
-      ]}
+    <Touchable
+      disabled={disabled}
+      onPress={onPress}
+      pressColor={pressColor}
+      style={styles.touchable}
+      ref={ref}
     >
-      <Touchable
-        disabled={disabled}
-        onPress={onPress}
-        pressColor={pressColor}
-        style={styles.touchable}
-        ref={ref}
+      <View
+        style={[
+          styles.container,
+          primary && styles.primary,
+          disabled && styles.disabled,
+          style,
+        ]}
       >
         <Ionicons
           name={`${Platform.OS === 'android' ? 'md' : 'ios'}-${icon}`}
@@ -47,8 +47,8 @@ export default React.forwardRef(function IconButton(
           color={disabled ? Colors.muted : primary ? 'white' : color}
           style={styles.icon}
         />
-      </Touchable>
-    </View>
+      </View>
+    </Touchable>
   );
 });
 
