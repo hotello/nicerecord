@@ -179,6 +179,7 @@ export default function ProfileScreen({ route, navigation }) {
     <KeyboardAvoidingView
       behavior={Platform.OS == 'ios' ? 'padding' : 'height'}
       keyboardVerticalOffset={headerHeight}
+      style={styles.screenContainer}
     >
       <ScrollView style={styles.screen}>
         <TextInputGroup style={styles.pictureContainer}>
@@ -313,5 +314,8 @@ const styles = StyleSheet.create({
   },
   screen: {
     paddingTop: Sizes.content,
+  },
+  screenContainer: {
+    flex: 1,
   },
 });
