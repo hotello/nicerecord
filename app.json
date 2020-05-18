@@ -24,7 +24,6 @@
       "isTabletOnly": true
     },
     "web": {
-      "favicon": "./assets/icon.png",
       "build": {
         "babel": {
           "include": ["i18next", "react-i18next", "formik"]
