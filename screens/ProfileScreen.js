@@ -57,12 +57,12 @@ const createPatient = ({
 
   const patient = {
     ...rest,
-    _id: `Patient_${familyName}_${givenName}_${birthDateISO}`,
+    _id: `Patient_${givenName}_${familyName}_${birthDateISO}`,
     birthDate: birthDateISO,
     name: {
       family: familyName,
       given: givenName.split(' '),
-      text: `${familyName} ${givenName}`,
+      text: `${givenName} ${familyName}`,
     },
     resourceType: 'Patient',
   };
@@ -185,22 +185,13 @@ export default function ProfileScreen({ route, navigation }) {
         <TextInputGroup style={styles.pictureContainer}>
           <Avatar
             rounded
-            title={`${values.familyName} ${values.givenName}`}
+            title={`${values.givenName} ${values.familyName}`}
             size="large"
             style={styles.picture}
           />
         </TextInputGroup>
 
         <TextInputGroup>
-          <TextInput
-            editable={edit && !patient?.familyName}
-            maxLength={50}
-            onBlur={handleBlur('familyName')}
-            onChangeText={handleChange('familyName')}
-            placeholder={t('lastName')}
-            underlineIOS
-            value={values.familyName}
-          />
           <TextInput
             editable={edit && !patient?.givenName}
             maxLength={50}
@@ -209,6 +200,15 @@ export default function ProfileScreen({ route, navigation }) {
             placeholder={t('firstName')}
             underlineIOS
             value={values.givenName}
+          />
+          <TextInput
+            editable={edit && !patient?.familyName}
+            maxLength={50}
+            onBlur={handleBlur('familyName')}
+            onChangeText={handleChange('familyName')}
+            placeholder={t('lastName')}
+            underlineIOS
+            value={values.familyName}
           />
           <DateInput
             editable={edit && !patient?.birthDate}
