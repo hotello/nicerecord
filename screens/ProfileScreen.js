@@ -281,7 +281,17 @@ export default function ProfileScreen({ route, navigation }) {
               title={t('deletePatient')}
               onPress={() =>
                 db
-                  .remove(patient._id, patient._rev)
+                  .allDocs({
+                    endkey: `ClinicalImpression_${patient._id}_\uffff`,
+                    include_docs: true,
+                    startkey: `ClinicalImpression_${patient._id}_`,
+                  })
+                  .then(({ rows }) =>
+                    db.bulkDocs(
+                      rows.map(({ doc }) => ({ ...doc, _deleted: true }))
+                    )
+                  )
+                  .then(() => db.remove(patient._id, patient._rev))
                   .then(() => navigation.navigate('MyPatients'))
                   .catch(console.error)
               }
