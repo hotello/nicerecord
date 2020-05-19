@@ -1,6 +1,6 @@
 {
   "name": "hipponote",
-  "version": "0.0.10",
+  "version": "0.0.11",
   "author": "Fabio Romita",
   "main": "node_modules/expo/AppEntry.js",
   "scripts": {
