@@ -2,6 +2,7 @@
   "expo": {
     "name": "Nicerecord",
     "description": "The minimalistic EHR.",
+    "displayName": "Nicerecord",
     "slug": "nicerecord",
     "owner": "hotello",
     "privacy": "unlisted",
