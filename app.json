@@ -2,7 +2,6 @@
   "expo": {
     "name": "Nicerecord",
     "description": "The minimalistic EHR.",
-    "displayName": "Nicerecord",
     "slug": "nicerecord",
     "owner": "hotello",
     "privacy": "unlisted",
@@ -23,6 +22,9 @@
     "ios": {
       "bundleIdentifier": "com.nicerecord.app",
       "isTabletOnly": true
+    },
+    "android": {
+      "package": "com.nicerecord.app"
     },
     "web": {
       "build": {
