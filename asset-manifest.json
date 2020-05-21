@@ -1,0 +1,33 @@
+{
+  "files": {
+    "app.js": "/nicerecord/static/js/app.6ba27274.chunk.js",
+    "app.js.map": "/nicerecord/static/js/app.6ba27274.chunk.js.map",
+    "runtime~app.js": "/nicerecord/static/js/runtime~app.daa96ac5.js",
+    "runtime~app.js.map": "/nicerecord/static/js/runtime~app.daa96ac5.js.map",
+    "static/js/2.d5bfb9c0.chunk.js": "/nicerecord/static/js/2.d5bfb9c0.chunk.js",
+    "static/js/2.d5bfb9c0.chunk.js.map": "/nicerecord/static/js/2.d5bfb9c0.chunk.js.map",
+    "fonts/AntDesign.ttf": "/nicerecord/./fonts/AntDesign.ttf",
+    "fonts/Entypo.ttf": "/nicerecord/./fonts/Entypo.ttf",
+    "fonts/Feather.ttf": "/nicerecord/./fonts/Feather.ttf",
+    "fonts/FontAwesome.ttf": "/nicerecord/./fonts/FontAwesome.ttf",
+    "fonts/FontAwesome5_Brands.ttf": "/nicerecord/./fonts/FontAwesome5_Brands.ttf",
+    "fonts/FontAwesome5_Solid.ttf": "/nicerecord/./fonts/FontAwesome5_Solid.ttf",
+    "fonts/Fontisto.ttf": "/nicerecord/./fonts/Fontisto.ttf",
+    "fonts/Foundation.ttf": "/nicerecord/./fonts/Foundation.ttf",
+    "fonts/Ionicons.ttf": "/nicerecord/./fonts/Ionicons.ttf",
+    "fonts/MaterialCommunityIcons.ttf": "/nicerecord/./fonts/MaterialCommunityIcons.ttf",
+    "fonts/MaterialIcons.ttf": "/nicerecord/./fonts/MaterialIcons.ttf",
+    "fonts/SimpleLineIcons.ttf": "/nicerecord/./fonts/SimpleLineIcons.ttf",
+    "favicon-16.png": "/nicerecord/favicon-16.png",
+    "favicon-32.png": "/nicerecord/favicon-32.png",
+    "favicon.ico": "/nicerecord/favicon.ico",
+    "index.html": "/nicerecord/index.html",
+    "manifest.json": "/nicerecord/manifest.json",
+    "serve.json": "/nicerecord/serve.json"
+  },
+  "entrypoints": [
+    "static/js/runtime~app.daa96ac5.js",
+    "static/js/2.d5bfb9c0.chunk.js",
+    "static/js/app.6ba27274.chunk.js"
+  ]
+}
