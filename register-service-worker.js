@@ -3,7 +3,7 @@
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', function () {
     navigator.serviceWorker
-      .register('/nicerecord/expo-service-worker.js', { scope: '/nicerecord/' })
+      .register('/expo-service-worker.js', { scope: '/' })
       .then(function (info) {
         // console.info('Registered service-worker', info);
       })

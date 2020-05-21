@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "/nicerecord/precache-manifest.a008ec08fee0dd9b0c0c7d70548ab077.js"
+  "/precache-manifest.b83912c7463bd17bdb09ee05d817da98.js"
 );
 
 workbox.skipWaiting();
@@ -29,7 +29,7 @@ self.__precacheManifest = [].concat(self.__precacheManifest || []);
 workbox.precaching.suppressWarnings();
 workbox.precaching.precacheAndRoute(self.__precacheManifest, {});
 
-workbox.routing.registerNavigationRoute("/nicerecord/index.html", {
+workbox.routing.registerNavigationRoute("index.html", {
   
   blacklist: [/^\/_/,/\/[^/]+\.[^/]+$/],
 });
