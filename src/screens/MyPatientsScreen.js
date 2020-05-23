@@ -1,14 +1,11 @@
 import * as React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { View } from 'react-native';
 
 import PatientList from '../components/PatientList';
 import db from '../lib/db';
 
-import { Sizes } from '../constants';
-
 export default function MyPatientsScreen({ navigation }) {
   const [patients, setPatients] = React.useState([]);
-  const isFocused = useIsFocused();
 
   React.useEffect(() => {
     const findPatients = () =>
@@ -30,7 +27,7 @@ export default function MyPatientsScreen({ navigation }) {
     return function () {
       changes.cancel();
     };
-  }, [isFocused]);
+  }, []);
 
   return (
     <View style={{ flex: 1 }}>
@@ -41,9 +38,3 @@ export default function MyPatientsScreen({ navigation }) {
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  icon: {
-    marginRight: Sizes.edge,
-  },
-});

@@ -1,10 +1,8 @@
-import { LinearGradient } from 'expo-linear-gradient';
+
 import * as React from 'react';
 import {
-  Button as RNButton,
   Platform,
   StyleSheet,
-  Text,
   View,
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';

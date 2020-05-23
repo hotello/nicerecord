@@ -1,10 +1,7 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+
+import MyPatientsScreen from '../screens/MyPatientsScreen';
 
 export default function RootNavigator() {
-  return (
-    <View>
-      <Text>Welcome to Nicerecord</Text>
-    </View>
-  );
+  return <MyPatientsScreen />;
 }
