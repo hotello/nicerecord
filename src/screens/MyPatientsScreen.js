@@ -1,8 +1,6 @@
 import * as React from 'react';
 import { StyleSheet, View } from 'react-native';
-import { useIsFocused } from '@react-navigation/native';
 
-import { IconButton } from '../components/base';
 import PatientList from '../components/PatientList';
 import db from '../lib/db';
 
@@ -11,20 +9,6 @@ import { Sizes } from '../constants';
 export default function MyPatientsScreen({ navigation }) {
   const [patients, setPatients] = React.useState([]);
   const isFocused = useIsFocused();
-
-  React.useEffect(() => {
-    navigation.setOptions({
-      headerRight: () => (
-        <IconButton
-          icon="person-add"
-          style={styles.icon}
-          onPress={() =>
-            navigation.navigate('Profile', { edit: true, patient: null })
-          }
-        />
-      ),
-    });
-  }, []);
 
   React.useEffect(() => {
     const findPatients = () =>
