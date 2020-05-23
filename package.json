@@ -10,9 +10,11 @@
     "lint": "eslint ."
   },
   "dependencies": {
+    "color": "^3.1.2",
     "react": "16.9.0",
     "react-native": "0.61.5",
-    "react-native-windows": "^0.61.9"
+    "react-native-windows": "^0.61.9",
+    "reactxp-experimental-navigation": "^1.0.14"
   },
   "devDependencies": {
     "@babel/core": "^7.6.2",
