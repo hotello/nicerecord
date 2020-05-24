@@ -1,11 +1,15 @@
 import * as React from 'react';
-import { View } from 'react-native';
+import { useTranslation } from 'react-i18next';
+import { StyleSheet, View } from 'react-native';
 
+import { HeaderTitle, IconButton } from '../components/base';
 import PatientList from '../components/PatientList';
+import { Sizes } from '../constants';
 import db from '../lib/db';
 
 export default function MyPatientsScreen({ navigation }) {
   const [patients, setPatients] = React.useState([]);
+  const { t } = useTranslation();
 
   React.useEffect(() => {
     const findPatients = () =>
@@ -30,7 +34,12 @@ export default function MyPatientsScreen({ navigation }) {
   }, []);
 
   return (
-    <View style={{ flex: 1 }}>
+    <View style={styles.screen}>
+      <View style={styles.header}>
+        <HeaderTitle>{t('myPatients')}</HeaderTitle>
+        <IconButton icon="&#xE8FA;" label={t('addPatient')} onPress={() => { }} />
+      </View>
+
       <PatientList
         onPress={(patient) => navigation.navigate('Patient', { patient })}
         patients={patients}
@@ -38,3 +47,15 @@ export default function MyPatientsScreen({ navigation }) {
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  screen: {
+    flex: 1,
+    padding: Sizes.content,
+  },
+  header: {
+    alignItems: 'center',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  }
+})

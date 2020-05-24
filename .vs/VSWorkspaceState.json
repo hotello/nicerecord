@@ -1,8 +1,11 @@
 {
   "ExpandedNodes": [
     "",
-    "\\src"
+    "\\src",
+    "\\src\\components",
+    "\\src\\components\\base",
+    "\\src\\components\\base\\IconButton",
+    "\\src\\screens"
   ],
-  "SelectedNode": "\\src\\components",
   "PreviewInSolutionExplorer": false
 }

@@ -1,7 +1,8 @@
 import Avatar from './Avatar';
 import Button from './Button';
 // import DateInput from './DateInput';
-// import IconButton from './IconButton';
+import HeaderTitle from './HeaderTitle';
+import IconButton from './IconButton';
 import Text from './Text';
 import TextInput from './TextInput';
 import TextInputGroup from './TextInputGroup';
@@ -11,7 +12,8 @@ export {
   Avatar,
   Button,
   // DateInput,
-  // IconButton,
+  HeaderTitle,
+  IconButton,
   Text,
   TextInput,
   TextInputGroup,
