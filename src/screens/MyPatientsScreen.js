@@ -2,7 +2,7 @@ import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 import { StyleSheet, View } from 'react-native';
 
-import { HeaderTitle, IconButton } from '../components/base';
+import { IconButton, Text } from '../components/base';
 import PatientList from '../components/PatientList';
 import { Sizes } from '../constants';
 import db from '../lib/db';
@@ -36,7 +36,7 @@ export default function MyPatientsScreen({ navigation }) {
   return (
     <View style={styles.screen}>
       <View style={styles.header}>
-        <HeaderTitle>{t('myPatients')}</HeaderTitle>
+        <Text style={styles.headerTitle}>{t('myPatients')}</Text>
         <IconButton icon="&#xE8FA;" label={t('addPatient')} onPress={() => { }} />
       </View>
 
@@ -57,5 +57,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flexDirection: 'row',
     justifyContent: 'space-between',
-  }
+  },
+  headerTitle: {
+    fontSize: Sizes.header,
+  },
 })

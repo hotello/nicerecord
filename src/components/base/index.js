@@ -1,7 +1,6 @@
 import Avatar from './Avatar';
 import Button from './Button';
 // import DateInput from './DateInput';
-import HeaderTitle from './HeaderTitle';
 import IconButton from './IconButton';
 import Text from './Text';
 import TextInput from './TextInput';
@@ -12,7 +11,6 @@ export {
   Avatar,
   Button,
   // DateInput,
-  HeaderTitle,
   IconButton,
   Text,
   TextInput,
