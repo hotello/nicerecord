@@ -4,7 +4,7 @@ import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 import { SectionList, StyleSheet, View } from 'react-native';
 
-import { Avatar, Text, Touchable } from './base';
+import { Avatar, Button, Icon, Text, Touchable } from './base';
 import { Sizes } from '../constants';
 
 const alphabetize = (rawData) => {
@@ -59,7 +59,9 @@ function ListEmptyComponent() {
 
   return (
     <View style={styles.empty}>
-      <Text muted>{t('noPatients')}</Text>
+      <Icon name="&#xE902;" size={48} style={styles.emptyIcon} />
+      <Text style={styles.emptyDescription}>{t('noPatients')}</Text>
+      <Button title={t('addPatient')} onPress={() => {}} />
     </View>
   );
 }
@@ -84,8 +86,16 @@ export default function PatientList({ onPress, patients }) {
 const styles = StyleSheet.create({
   empty: {
     alignItems: 'center',
+    flex: 1,
     padding: Sizes.content,
+    paddingTop: Sizes.unit * 25,
     justifyContent: 'center',
+  },
+  emptyDescription: {
+    marginBottom: Sizes.unit * 4,
+  },
+  emptyIcon: {
+    marginBottom: Sizes.unit * 4,
   },
   header: {
     fontWeight: 'bold',
