@@ -4,7 +4,7 @@ import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 import { SectionList, StyleSheet, View } from 'react-native';
 
-import { Avatar, Button, Icon, Text, Touchable } from './base';
+import { Avatar, Button, Icon, ListItem, Text } from './base';
 import { Sizes } from '../constants';
 
 const alphabetize = (rawData) => {
@@ -42,15 +42,15 @@ const alphabetize = (rawData) => {
 
 function Item({ onPress, item }) {
   return (
-    <Touchable onPress={() => onPress(item)}>
+    <ListItem onPress={() => onPress(item)}>
       <View style={styles.item}>
-        <Avatar rounded title={item.name.text} style={styles.picture} />
-        <View style={styles.center}>
+        <Avatar rounded title={item.name.text} style={styles.picture} size={28} />
+        <View style={styles.details}>
           <Text>{item.name.text}</Text>
-          <Text muted>{format(parseISO(item.birthDate), 'PP')}</Text>
+          {/*<Text muted>{format(parseISO(item.birthDate), 'PP')}</Text>*/}
         </View>
       </View>
-    </Touchable>
+    </ListItem>
   );
 }
 
@@ -84,6 +84,9 @@ export default function PatientList({ onPress, patients }) {
 }
 
 const styles = StyleSheet.create({
+  details: {
+    alignItems: 'center',
+  },
   empty: {
     alignItems: 'center',
     flex: 1,

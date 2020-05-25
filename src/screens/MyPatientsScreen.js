@@ -2,7 +2,7 @@ import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 import { StyleSheet, View } from 'react-native';
 
-import { IconButton, Text } from '../components/base';
+import { Icon, ListItem, Text } from '../components/base';
 import PatientList from '../components/PatientList';
 import { Sizes } from '../constants';
 import db from '../lib/db';
@@ -35,14 +35,24 @@ export default function MyPatientsScreen({ navigation }) {
 
   return (
     <View style={styles.screen}>
-      <View style={styles.header}>
-        <Text style={styles.headerTitle}>{t('myPatients')}</Text>
-        <IconButton
-          icon="&#xE8FA;"
-          label={t('addPatient')}
-          onPress={() => navigation.navigate('NoteTaker')}
-        />
-      </View>
+      <ListItem onPress={() => navigation.navigate('Root', { patient: null })}>
+        <View
+          style={{
+            flexDirection: 'row',
+            alignItems: 'center',
+            paddingVertical: Sizes.unit * 3,
+          }}
+        >
+          <Icon
+            name="&#xE8FA;"
+            style={{
+              marginLeft: Sizes.unit * 5,
+              marginRight: Sizes.unit * 5,
+            }}
+          />
+          <Text>{t('addPatient')}</Text>
+        </View>
+      </ListItem>
 
       <PatientList
         onPress={(patient) => navigation.navigate('Patient', { patient })}
@@ -55,14 +65,6 @@ export default function MyPatientsScreen({ navigation }) {
 const styles = StyleSheet.create({
   screen: {
     flex: 1,
-  },
-  header: {
-    alignItems: 'center',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    padding: Sizes.content,
-  },
-  headerTitle: {
-    fontSize: Sizes.header,
+    marginTop: Sizes.unit * 4
   },
 })

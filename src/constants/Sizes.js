@@ -3,9 +3,9 @@ const UNIT = 4;
 const SIZES = {
   content: UNIT * 4,
   edge: UNIT * 2,
-  header: 25,
+  header: 24,
   radius: 2,
-  text: 16,
+  text: 14,
 };
 
 export default {

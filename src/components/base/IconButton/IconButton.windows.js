@@ -22,20 +22,6 @@ export default React.forwardRef(function IconButton(
   },
   ref
 ) {
-  /*
-  return (
-    <View
-      style={[
-        styles.container,
-        disabled && styles.disabled,
-        style,
-      ]}
-    >
-      <Text>Something</Text>
-    </View>
-  );
-  */
-
   return (
     <TouchableHighlight
       {...rest}
