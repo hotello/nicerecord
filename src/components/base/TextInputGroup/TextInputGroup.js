@@ -1,9 +1,9 @@
 import * as React from 'react';
 import { StyleSheet, View } from 'react-native';
 
-import { Colors, Sizes } from '../../../constants';
+import { Sizes } from '../../../constants';
 
-export default function TextInputGroup({ children, style, ...props }) {
+export default function TextInputGroupAndroid({ children, style, ...props }) {
   return (
     <View {...props} style={[styles.group, style]}>
       {children}
@@ -13,11 +13,7 @@ export default function TextInputGroup({ children, style, ...props }) {
 
 const styles = StyleSheet.create({
   group: {
-    backgroundColor: Colors.surface,
-    borderBottomColor: Colors.border,
-    borderBottomWidth: StyleSheet.hairlineWidth,
-    borderTopColor: Colors.border,
-    borderTopWidth: StyleSheet.hairlineWidth,
     marginBottom: Sizes.unit * 4,
+    paddingHorizontal: Sizes.content,
   },
 });

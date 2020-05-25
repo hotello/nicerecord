@@ -43,6 +43,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flexDirection: 'row',
     justifyContent: 'center',
+    minWidth: Sizes.unit * 20,
     padding: Sizes.unit * 2,
   },
   disabled: {

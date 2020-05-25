@@ -1,20 +1,14 @@
-import format from 'date-fns/format';
 import formatISO from 'date-fns/formatISO';
-import * as faker from 'faker';
-import * as pouchCollate from 'pouchdb-collate';
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 import {
-  KeyboardAvoidingView,
-  Platform,
   StyleSheet,
   TextInput,
-  View,
+  View
 } from 'react-native';
-import { useHeaderHeight } from '@react-navigation/stack';
 
+import { IconButton, Text } from '../components/base';
 import { Colors, Sizes } from '../constants';
-import { IconButton } from '../components/base';
 import NoteContext from '../components/NoteContext';
 import db from '../lib/db';
 import useDebounce from '../lib/useDebounce';
@@ -43,13 +37,21 @@ const putNote = ({ date, summary, subject, ...rest }) => {
 
 export default function NoteScreen({ navigation }) {
   const { t } = useTranslation();
-  const headerHeight = useHeaderHeight();
-  const { note: externalNote, setNote: setExternalNote } = React.useContext(
+  const { note: externalNote } = React.useContext(
     NoteContext
   );
   const [note, setNote] = React.useState({});
   const [summary, setSummary] = React.useState('');
   const debouncedSummary = useDebounce(summary, 1000);
+
+  const deleteNote = (note) =>
+    db
+      .remove(note._id, note._rev)
+      .then(() => {
+        setNote({ subject: note.subject });
+        setSummary('');
+      })
+      .catch(console.error);
 
   // Replace internal note state when external note changes
   React.useEffect(() => {
@@ -74,6 +76,7 @@ export default function NoteScreen({ navigation }) {
     }
   }, [note._id, note.subject]);
 
+  /*
   React.useEffect(() => {
     const date = note.date ? new Date(note.date) : new Date();
     navigation.setOptions({
@@ -96,6 +99,7 @@ export default function NoteScreen({ navigation }) {
       title: note && note.date ? format(date, 'PP') : t('note'),
     });
   }, [note]);
+  */
 
   // Save note when summary changes
   React.useEffect(() => {
@@ -107,11 +111,15 @@ export default function NoteScreen({ navigation }) {
   }, [debouncedSummary]);
 
   return (
-    <KeyboardAvoidingView
-      behavior={Platform.OS == 'ios' ? 'padding' : 'height'}
-      keyboardVerticalOffset={headerHeight}
-      style={styles.screen}
-    >
+    <View style={styles.screen}>
+      <View style={styles.header}>
+        <Text style={styles.headerTitle}>{t('note')}</Text>
+        <IconButton
+          disabled={!note._id || !note.subject}
+          icon="&#xE74D;"
+          onPress={() => deleteNote(note)}
+        />
+      </View>
       <TextInput
         editable={!!note?.subject}
         multiline
@@ -121,11 +129,20 @@ export default function NoteScreen({ navigation }) {
         textAlignVertical={'top'}
         value={summary}
       />
-    </KeyboardAvoidingView>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
+  header: {
+    alignItems: 'center',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    paddingBottom: Sizes.unit * 4,
+  },
+  headerTitle: {
+    fontSize: Sizes.header,
+  },
   icon: {
     marginRight: Sizes.edge,
   },

@@ -37,7 +37,11 @@ export default function MyPatientsScreen({ navigation }) {
     <View style={styles.screen}>
       <View style={styles.header}>
         <Text style={styles.headerTitle}>{t('myPatients')}</Text>
-        <IconButton icon="&#xE8FA;" label={t('addPatient')} onPress={() => { }} />
+        <IconButton
+          icon="&#xE8FA;"
+          label={t('addPatient')}
+          onPress={() => navigation.navigate('NoteTaker')}
+        />
       </View>
 
       <PatientList

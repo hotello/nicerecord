@@ -1,7 +1,6 @@
 import sub from 'date-fns/sub';
 import formatISO from 'date-fns/formatISO';
 import { useFormik } from 'formik';
-import * as pouchCollate from 'pouchdb-collate';
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 import {
@@ -12,14 +11,14 @@ import {
   View,
 } from 'react-native';
 import * as Yup from 'yup';
-import { useHeaderHeight } from '@react-navigation/stack';
 
-import { Colors, Sizes } from '../constants';
+import { Sizes } from '../constants';
 import {
   Avatar,
   Button,
-  DateInput,
+  // DateInput,
   IconButton,
+  Text,
   TextInput,
   TextInputGroup,
 } from '../components/base';
@@ -111,7 +110,6 @@ const createPatient = ({
 
 export default function ProfileScreen({ route, navigation }) {
   const { t } = useTranslation();
-  const headerHeight = useHeaderHeight();
   const edit = route.params?.edit;
   const patient = route.params?.patient;
 
@@ -152,6 +150,7 @@ export default function ProfileScreen({ route, navigation }) {
     validationSchema: SignupSchema,
   });
 
+  /*
   React.useEffect(() => {
     navigation.setOptions({
       headerRight: () => (
@@ -174,14 +173,21 @@ export default function ProfileScreen({ route, navigation }) {
       title: edit ? t('profileEdit') : t('profile'),
     });
   }, [route.params, isValid]);
+  */
 
   return (
-    <KeyboardAvoidingView
-      behavior={Platform.OS == 'ios' ? 'padding' : 'height'}
-      keyboardVerticalOffset={headerHeight}
-      style={styles.screenContainer}
-    >
-      <ScrollView style={styles.screen}>
+    <View style={styles.screen}>
+      <View style={styles.header}>
+        <IconButton
+          icon="&#xE72B;"
+          onPress={() => navigation.goBack()}
+          style={styles.back}
+        />
+        <Text style={styles.headerTitle}>
+          {edit ? t('profileEdit') : t('profile')}
+        </Text>
+      </View>
+      <ScrollView style={styles.scroll}>
         <TextInputGroup style={styles.pictureContainer}>
           <Avatar
             rounded
@@ -210,12 +216,12 @@ export default function ProfileScreen({ route, navigation }) {
             underlineIOS
             value={values.familyName}
           />
-          <DateInput
+          {/*<DateInput
             editable={edit && !patient?.birthDate}
             label={t('birthDate')}
             onChange={(date) => setFieldValue('birthDate', date)}
             value={values.birthDate}
-          />
+          />*/}
         </TextInputGroup>
 
         <TextInputGroup>
@@ -275,6 +281,15 @@ export default function ProfileScreen({ route, navigation }) {
           />
         </TextInputGroup>
 
+        {edit && (
+          <View style={styles.save}>
+            <Button
+              title={t('save')}
+              onPress={() => { }}
+            />
+          </View>
+        )}
+
         {edit && patient && (
           <TextInputGroup style={styles.delete}>
             <Button
@@ -299,11 +314,14 @@ export default function ProfileScreen({ route, navigation }) {
           </TextInputGroup>
         )}
       </ScrollView>
-    </KeyboardAvoidingView>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
+  back: {
+    marginRight: Sizes.unit * 4,
+  },
   delete: {
     alignItems: 'flex-start',
     paddingHorizontal: Sizes.unit,
@@ -312,6 +330,16 @@ const styles = StyleSheet.create({
   done: {
     marginRight: Sizes.edge,
   },
+  header: {
+    alignItems: 'center',
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    padding: Sizes.content,
+    paddingBottom: Sizes.unit * 4,
+  },
+  headerTitle: {
+    fontSize: Sizes.header,
+  },
   picture: {
     borderRadius: 60,
     height: 120,
@@ -319,13 +347,16 @@ const styles = StyleSheet.create({
     width: 120,
   },
   pictureContainer: {
-    alignItems: 'center',
     paddingVertical: Sizes.content,
   },
-  screen: {
-    paddingTop: Sizes.content,
+  save: {
+    flexDirection: 'row',
+    paddingHorizontal: Sizes.content,
   },
-  screenContainer: {
+  screen: {
+    flex: 1,
+  },
+  scroll: {
     flex: 1,
   },
 });

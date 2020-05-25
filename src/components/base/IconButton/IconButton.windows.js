@@ -38,16 +38,24 @@ export default React.forwardRef(function IconButton(
 
   return (
     <TouchableHighlight
+      {...rest}
+      disabled={disabled}
       onPress={onPress}
-      style={styles.touchable}
+      style={[styles.touchable, styles.disabled, style]}
       underlayColor={{
         windowsbrush: 'AppBarButtonBackgroundPressed'
       }}
       ref={ref}
     >
       <View style={styles.container}>
-        <Text style={styles.icon}>{icon}</Text>
-        {label && <Text style={styles.label}>{label}</Text>}
+        <Text style={[styles.icon, disabled && styles.foregroundDisabled]}>
+          {icon}
+        </Text>
+        {label && (
+          <Text style={[styles.label, disabled && styles.foregroundDisabled]}>
+            {label}
+          </Text>
+        )}
       </View>
     </TouchableHighlight>
   )
@@ -64,6 +72,14 @@ const styles = StyleSheet.create({
     },
   },
   disabled: {
+    backgroundColor: {
+      windowsbrush: 'AppBarButtonBackgroundDisabled',
+    },
+  },
+  foregroundDisabled: {
+    color: {
+      windowsbrush: 'AppBarButtonForegroundDisabled',
+    },
   },
   icon: {
     fontFamily: 'Segoe MDL2 Assets',

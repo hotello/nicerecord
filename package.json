@@ -13,6 +13,7 @@
     "@fluentui/react-native": "^0.15.33",
     "color": "^3.1.2",
     "date-fns": "^2.14.0",
+    "formik": "^2.1.4",
     "i18next": "^19.4.4",
     "initials": "^3.0.1",
     "pouchdb": "^7.2.1",
@@ -20,7 +21,8 @@
     "react": "16.9.0",
     "react-i18next": "^11.5.0",
     "react-native": "0.61.5",
-    "react-native-windows": "^0.61.9"
+    "react-native-windows": "^0.61.9",
+    "yup": "^0.29.0"
   },
   "devDependencies": {
     "@babel/core": "^7.6.2",
