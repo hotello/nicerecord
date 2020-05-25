@@ -3,17 +3,17 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { View, FlatList, StyleSheet } from 'react-native';
 
-import { Touchable, Text } from '../components/base';
+import { ListItem, Text } from '../components/base';
 import { Colors, Sizes } from '../constants';
 
 function Item({ item, onPress }) {
   return (
-    <Touchable onPress={() => onPress(item)}>
+    <ListItem onPress={() => onPress(item)}>
       <View style={styles.item}>
         <Text style={styles.date}>{format(new Date(item.date), 'PP')}</Text>
         <Text>{item.summary}</Text>
       </View>
-    </Touchable>
+    </ListItem>
   );
 }
 
@@ -49,11 +49,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   item: {
-    backgroundColor: Colors.surface,
-    borderColor: Colors.border,
-    borderRadius: Sizes.radius,
-    borderWidth: 1,
-    margin: Sizes.edge,
     padding: Sizes.content,
   },
 });

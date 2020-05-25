@@ -1,3 +1,4 @@
+import format from 'date-fns/format';
 import formatISO from 'date-fns/formatISO';
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
@@ -43,6 +44,7 @@ export default function NoteScreen({ navigation }) {
   const [note, setNote] = React.useState({});
   const [summary, setSummary] = React.useState('');
   const debouncedSummary = useDebounce(summary, 1000);
+  const date = note.date ? new Date(note.date) : new Date();
 
   const deleteNote = (note) =>
     db
@@ -113,7 +115,9 @@ export default function NoteScreen({ navigation }) {
   return (
     <View style={styles.screen}>
       <View style={styles.header}>
-        <Text style={styles.headerTitle}>{t('note')}</Text>
+        <Text style={styles.headerTitle}>
+          {note && note.date ? format(date, 'PP') : t('note')}
+        </Text>
         <IconButton
           disabled={!note._id || !note.subject}
           icon="&#xE74D;"
@@ -138,6 +142,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flexDirection: 'row',
     justifyContent: 'space-between',
+    padding: Sizes.content,
     paddingBottom: Sizes.unit * 4,
   },
   headerTitle: {
@@ -149,10 +154,11 @@ const styles = StyleSheet.create({
   input: {
     flex: 1,
     fontSize: Sizes.text,
+    borderColor: 'transparent',
+    padding: Sizes.content,
   },
   screen: {
     backgroundColor: Colors.surface,
     flex: 1,
-    padding: Sizes.content,
   },
 });

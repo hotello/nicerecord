@@ -78,10 +78,17 @@ export default function PatientScreen({ route, navigation }) {
         <Text style={styles.headerTitle}>
           {patient.name.text}
         </Text>
+        <View style={styles.headerRight}>
         <IconButton
-          icon="&#xE779;"
-          onPress={() => navigation.navigate('Profile', { patient, edit: false })}
+            icon="&#xE779;"
+            onPress={() => navigation.navigate('Profile', { patient, edit: false })}
+            style={{ marginRight: Sizes.unit * 2 }}
         />
+        <IconButton
+            icon="&#xE710;"
+          onPress={() => newNote()}
+          />
+        </View>
       </View>
       <NoteList notes={notes} onPress={(note) => setNote(note)} />
     </View>
@@ -94,6 +101,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     margin: Sizes.content,
+  },
+  headerRight: {
+    flexDirection: 'row'
   },
   headerTitle: {
     fontSize: Sizes.header,
