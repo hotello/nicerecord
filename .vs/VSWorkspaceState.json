@@ -4,8 +4,8 @@
     "\\src",
     "\\src\\components",
     "\\src\\components\\base",
-    "\\src\\components\\base\\IconButton",
-    "\\src\\screens"
+    "\\src\\components\\base\\DateInput"
   ],
+  "SelectedNode": "\\src\\components\\base\\DateInput\\DateInput.windows.js",
   "PreviewInSolutionExplorer": false
 }

@@ -27,6 +27,7 @@ export default React.forwardRef(function TextInputAndroid(
 
 const styles = StyleSheet.create({
   input: {
+    borderRadius: Sizes.radius,
     marginBottom: Sizes.unit * 2,
     minHeight: Sizes.unit * 8,
   },

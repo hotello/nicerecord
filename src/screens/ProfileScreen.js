@@ -16,7 +16,7 @@ import { Sizes } from '../constants';
 import {
   Avatar,
   Button,
-  // DateInput,
+  DateInput,
   IconButton,
   Text,
   TextInput,
@@ -216,12 +216,12 @@ export default function ProfileScreen({ route, navigation }) {
             underlineIOS
             value={values.familyName}
           />
-          {/*<DateInput
+          <DateInput
             editable={edit && !patient?.birthDate}
             label={t('birthDate')}
             onChange={(date) => setFieldValue('birthDate', date)}
             value={values.birthDate}
-          />*/}
+          />
         </TextInputGroup>
 
         <TextInputGroup>

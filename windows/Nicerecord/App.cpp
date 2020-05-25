@@ -37,6 +37,8 @@ App::App() noexcept
 
     REACT_REGISTER_NATIVE_MODULE_PACKAGES(); //code-gen macro from autolink
 
+    PackageProviders().Append(winrt::DateTimePicker::ReactPackageProvider());
+
     InitializeComponent();
 
     // This works around a cpp/winrt bug with composable/aggregable types tracked

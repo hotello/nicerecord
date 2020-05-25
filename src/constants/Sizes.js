@@ -4,7 +4,7 @@ const SIZES = {
   content: UNIT * 4,
   edge: UNIT * 2,
   header: 25,
-  radius: UNIT * 2,
+  radius: 2,
   text: 16,
 };
 
