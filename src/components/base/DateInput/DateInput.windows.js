@@ -17,6 +17,7 @@ export default function DateInput(
   return (
     <DateTimePicker
       {...props}
+      editable={editable}
       onChange={onChangeInternal}
       value={value}
       style={styles.picker}

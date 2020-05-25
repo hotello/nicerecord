@@ -2,7 +2,6 @@ import format from 'date-fns/format';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { View, FlatList, StyleSheet } from 'react-native';
-import Constants from 'expo-constants';
 
 import { Touchable, Text } from '../components/base';
 import { Colors, Sizes } from '../constants';

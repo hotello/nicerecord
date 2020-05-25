@@ -35,7 +35,7 @@ export default function MyPatientsScreen({ navigation }) {
 
   return (
     <View style={styles.screen}>
-      <ListItem onPress={() => navigation.navigate('Root', { patient: null })}>
+      <ListItem onPress={() => navigation.navigate('Profile', { patient: null, edit: true })}>
         <View
           style={{
             flexDirection: 'row',

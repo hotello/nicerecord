@@ -4,6 +4,7 @@ import { StyleSheet, View } from 'react-native';
 import NoteContext from '../components/NoteContext';
 import MyPatientsScreen from '../screens/MyPatientsScreen';
 import NoteScreen from '../screens/NoteScreen';
+import PatientScreen from '../screens/PatientScreen';
 import ProfileScreen from '../screens/ProfileScreen';
 
 export default function RootNavigator() {
@@ -26,7 +27,11 @@ export default function RootNavigator() {
         </View>
 
         <View style={styles.master}>
-          <ProfileScreen navigation={navigation} route={route} />
+          {route.name === 'Patient' ? (
+            <PatientScreen navigation={navigation} route={route} />
+          ) : (
+            <ProfileScreen navigation={navigation} route={route} />
+          )}
         </View>
 
         <View style={styles.detail}>

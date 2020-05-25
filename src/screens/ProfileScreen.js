@@ -24,7 +24,7 @@ import {
 } from '../components/base';
 import db from '../lib/db';
 
-const SignupSchema = Yup.object().shape({
+const PatientSchema = Yup.object().shape({
   birthDate: Yup.date()
     .max(sub(new Date(), { days: 1 }))
     .required(),
@@ -117,7 +117,9 @@ export default function ProfileScreen({ route, navigation }) {
     handleBlur,
     handleChange,
     handleSubmit,
+    isSubmitting,
     isValid,
+    resetForm,
     setFieldValue,
     values,
   } = useFormik({
@@ -147,8 +149,14 @@ export default function ProfileScreen({ route, navigation }) {
         )
         .catch(console.error);
     },
-    validationSchema: SignupSchema,
+    validationSchema: PatientSchema,
   });
+
+  React.useEffect(() => {
+    if (!patient) {
+      resetForm();
+    }
+  }, [patient]);
 
   /*
   React.useEffect(() => {
@@ -178,14 +186,35 @@ export default function ProfileScreen({ route, navigation }) {
   return (
     <View style={styles.screen}>
       <View style={styles.header}>
-        <IconButton
-          icon="&#xE72B;"
-          onPress={() => navigation.goBack()}
-          style={styles.back}
-        />
         <Text style={styles.headerTitle}>
-          {edit ? t('profileEdit') : t('profile')}
+          {edit ? patient ? t('profileEdit') : t('addPatient') : t('profile')}
         </Text>
+        {edit ? patient ? (
+          <IconButton
+            icon="&#xE74D;"
+            onPress={() =>
+              db
+                .allDocs({
+                  endkey: `ClinicalImpression_${patient._id}_\uffff`,
+                  include_docs: true,
+                  startkey: `ClinicalImpression_${patient._id}_`,
+                })
+                .then(({ rows }) =>
+                  db.bulkDocs(
+                    rows.map(({ doc }) => ({ ...doc, _deleted: true }))
+                  )
+                )
+                .then(() => db.remove(patient._id, patient._rev))
+                .then(() => navigation.navigate('Profile', { edit: true, patient: null }))
+                .catch(console.error)
+            }
+          />
+        ) : null : (
+          <IconButton
+            icon="&#xE70F;"
+            onPress={() => navigation.navigate('Profile', { edit: true, patient })}
+          />    
+        )}
       </View>
       <ScrollView style={styles.scroll}>
         <TextInputGroup style={styles.pictureContainer}>
@@ -285,35 +314,11 @@ export default function ProfileScreen({ route, navigation }) {
           <View style={styles.save}>
             <Button
               title={t('save')}
-              disabled={!isValid}
+              disabled={!isValid || isSubmitting}
               bold
               onPress={handleSubmit}
             />
           </View>
-        )}
-
-        {edit && patient && (
-          <TextInputGroup style={styles.delete}>
-            <Button
-              title={t('deletePatient')}
-              onPress={() =>
-                db
-                  .allDocs({
-                    endkey: `ClinicalImpression_${patient._id}_\uffff`,
-                    include_docs: true,
-                    startkey: `ClinicalImpression_${patient._id}_`,
-                  })
-                  .then(({ rows }) =>
-                    db.bulkDocs(
-                      rows.map(({ doc }) => ({ ...doc, _deleted: true }))
-                    )
-                  )
-                  .then(() => db.remove(patient._id, patient._rev))
-                  .then(() => navigation.navigate('MyPatients'))
-                  .catch(console.error)
-              }
-            />
-          </TextInputGroup>
         )}
       </ScrollView>
     </View>
@@ -321,9 +326,6 @@ export default function ProfileScreen({ route, navigation }) {
 }
 
 const styles = StyleSheet.create({
-  back: {
-    marginRight: Sizes.unit * 4,
-  },
   delete: {
     alignItems: 'flex-start',
     paddingHorizontal: Sizes.unit,
@@ -335,7 +337,7 @@ const styles = StyleSheet.create({
   header: {
     alignItems: 'center',
     flexDirection: 'row',
-    justifyContent: 'flex-start',
+    justifyContent: 'space-between',
     padding: Sizes.content,
     paddingBottom: Sizes.unit * 4,
   },

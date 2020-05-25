@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { StyleSheet, View } from 'react-native';
 
-import { IconButton } from '../components/base';
+import { IconButton, Text } from '../components/base';
 import NoteContext from '../components/NoteContext';
 import NoteList from '../components/NoteList';
 import { Sizes } from '../constants';
@@ -15,6 +15,7 @@ export default function PatientScreen({ route, navigation }) {
   const newNote = () =>
     setNote({ subject: { reference: patient._id, type: 'Patient' } });
 
+  /*
   React.useEffect(() => {
     navigation.setOptions({
       headerRight: () => (
@@ -37,6 +38,7 @@ export default function PatientScreen({ route, navigation }) {
       title: patient.name.text,
     });
   }, [patient]);
+  */
 
   React.useEffect(() => {
     const findNotes = () =>
@@ -70,15 +72,31 @@ export default function PatientScreen({ route, navigation }) {
     };
   }, [patient._id]);
 
-  return <NoteList notes={notes} onPress={(note) => setNote(note)} />;
+  return (
+    <View>
+      <View style={styles.header}>
+        <Text style={styles.headerTitle}>
+          {patient.name.text}
+        </Text>
+        <IconButton
+          icon="&#xE779;"
+          onPress={() => navigation.navigate('Profile', { patient, edit: false })}
+        />
+      </View>
+      <NoteList notes={notes} onPress={(note) => setNote(note)} />
+    </View>
+  );
 }
 
 const styles = StyleSheet.create({
-  headerRight: {
+  header: {
+    alignItems: 'center',
     flexDirection: 'row',
+    justifyContent: 'space-between',
+    margin: Sizes.content,
   },
-  icon: {
-    marginRight: Sizes.edge,
+  headerTitle: {
+    fontSize: Sizes.header,
   },
   screen: {
     flex: 1,
