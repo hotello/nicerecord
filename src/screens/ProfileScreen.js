@@ -285,7 +285,9 @@ export default function ProfileScreen({ route, navigation }) {
           <View style={styles.save}>
             <Button
               title={t('save')}
-              onPress={() => { }}
+              disabled={!isValid}
+              bold
+              onPress={handleSubmit}
             />
           </View>
         )}

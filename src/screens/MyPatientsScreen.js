@@ -55,12 +55,12 @@ export default function MyPatientsScreen({ navigation }) {
 const styles = StyleSheet.create({
   screen: {
     flex: 1,
-    padding: Sizes.content,
   },
   header: {
     alignItems: 'center',
     flexDirection: 'row',
     justifyContent: 'space-between',
+    padding: Sizes.content,
   },
   headerTitle: {
     fontSize: Sizes.header,
