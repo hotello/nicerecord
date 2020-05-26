@@ -9,7 +9,7 @@ import db from '../lib/db';
 
 export default function PatientScreen({ route, navigation }) {
   const [notes, setNotes] = React.useState([]);
-  const { setNote } = React.useContext(NoteContext);
+  const { note, setNote } = React.useContext(NoteContext);
   const { patient } = route.params;
 
   const newNote = () =>
@@ -65,7 +65,11 @@ export default function PatientScreen({ route, navigation }) {
           />
         </View>
       </View>
-      <NoteList notes={notes} onPress={(note) => setNote(note)} />
+      <NoteList
+        notes={notes}
+        onPress={(note) => setNote(note)}
+        selected={note ? note._id : null}
+      />
     </View>
   );
 }

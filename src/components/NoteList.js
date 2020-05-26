@@ -6,10 +6,10 @@ import { View, FlatList, StyleSheet } from 'react-native';
 import { ListItem, Text } from '../components/base';
 import { Colors, Sizes } from '../constants';
 
-function Item({ item, onPress }) {
+function Item({ item, onPress, selected }) {
   return (
     <ListItem onPress={() => onPress(item)}>
-      <View style={styles.item}>
+      <View style={[styles.item, selected && styles.selected]}>
         <Text style={styles.date}>{format(new Date(item.date), 'PP')}</Text>
         <Text>{item.summary}</Text>
       </View>
@@ -27,12 +27,14 @@ function ListEmptyComponent() {
   );
 }
 
-export default function NoteList({ onPress, notes }) {
+export default function NoteList({ onPress, notes, selected }) {
   return (
     <FlatList
       data={notes}
       ListEmptyComponent={ListEmptyComponent}
-      renderItem={({ item }) => <Item item={item} onPress={onPress} />}
+      renderItem={({ item }) =>
+        <Item item={item} onPress={onPress} selected={item._id === selected} />
+      }
       keyExtractor={(item) => item._id}
     />
   );
@@ -50,5 +52,8 @@ const styles = StyleSheet.create({
   },
   item: {
     padding: Sizes.content,
+  },
+  selected: {
+    backgroundColor: { windowsbrush: 'SystemControlHighlightAltListAccentLowBrush' }
   },
 });

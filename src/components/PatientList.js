@@ -40,10 +40,19 @@ const alphabetize = (rawData) => {
   );
 };
 
-function Item({ onPress, item }) {
+function Item({ onPress, item, selected }) {
   return (
     <ListItem onPress={() => onPress(item)}>
       <View style={styles.item}>
+        {selected && (
+          <View
+            style={{
+              backgroundColor: { windowsbrush: 'SystemAccentColor' },
+              height: Sizes.unit * 6,
+              width: Sizes.unit,
+            }}
+          />
+        )}
         <Avatar rounded title={item.name.text} style={styles.picture} size={28} />
         <View style={styles.details}>
           <Text>{item.name.text}</Text>
@@ -64,7 +73,7 @@ function ListEmptyComponent() {
   );
 }
 
-export default function PatientList({ onPress, patients }) {
+export default function PatientList({ onPress, patients, selected }) {
   const sections = alphabetize(patients);
 
   return (
@@ -73,7 +82,9 @@ export default function PatientList({ onPress, patients }) {
       sections={sections}
       keyExtractor={(item) => item._id}
       ListEmptyComponent={ListEmptyComponent}
-      renderItem={({ item }) => <Item onPress={onPress} item={item} />}
+      renderItem={({ item }) =>
+        <Item onPress={onPress} item={item} selected={selected === item._id} />
+      }
       renderSectionHeader={({ section: { title } }) => (
         <Text style={styles.header}>{title}</Text>
       )}

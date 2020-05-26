@@ -6,6 +6,7 @@ import db from '../lib/db';
 
 export default function MyPatientsScreen({ navigation, route }) {
   const [patients, setPatients] = React.useState([]);
+  const patient = route.params?.patient;
 
   React.useEffect(() => {
     const findPatients = () =>
@@ -34,6 +35,7 @@ export default function MyPatientsScreen({ navigation, route }) {
       <PatientList
         onPress={(patient) => navigation.navigate('Patient', { patient })}
         patients={patients}
+        selected={patient ? patient._id : null}
       />
     </View>
   );
