@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { useTranslation } from 'react-i18next';
 import { StyleSheet, View } from 'react-native';
 
 import PatientList from '../components/PatientList';
@@ -7,7 +6,6 @@ import db from '../lib/db';
 
 export default function MyPatientsScreen({ navigation, route }) {
   const [patients, setPatients] = React.useState([]);
-  const { t } = useTranslation();
 
   React.useEffect(() => {
     const findPatients = () =>

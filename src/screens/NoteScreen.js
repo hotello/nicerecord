@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 
 import { IconButton, Text } from '../components/base';
-import { Colors, Sizes } from '../constants';
+import { Sizes } from '../constants';
 import NoteContext from '../components/NoteContext';
 import db from '../lib/db';
 import useDebounce from '../lib/useDebounce';
@@ -78,31 +78,6 @@ export default function NoteScreen({ navigation }) {
     }
   }, [note._id, note.subject]);
 
-  /*
-  React.useEffect(() => {
-    const date = note.date ? new Date(note.date) : new Date();
-    navigation.setOptions({
-      headerRight: () => (
-        <IconButton
-          disabled={!note._id || !note.subject}
-          onPress={() =>
-            db
-              .remove(note._id, note._rev)
-              .then(() => {
-                setNote({ subject: note.subject });
-                setSummary('');
-              })
-              .catch(console.error)
-          }
-          icon="trash"
-          style={styles.icon}
-        />
-      ),
-      title: note && note.date ? format(date, 'PP') : t('note'),
-    });
-  }, [note]);
-  */
-
   // Save note when summary changes
   React.useEffect(() => {
     if (note._id && note.subject && debouncedSummary.length > 0) {
@@ -158,7 +133,6 @@ const styles = StyleSheet.create({
     padding: Sizes.content,
   },
   screen: {
-    backgroundColor: Colors.surface,
     flex: 1,
   },
 });

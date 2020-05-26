@@ -64,7 +64,7 @@ const Avatar = ({
   const width =
     typeof size === 'number' ? size : avatarSizes[size] || avatarSizes.small;
   const height = width;
-  const titleSize = width / 2;
+  const titleSize = width / 2.5;
 
   return (
     <Component

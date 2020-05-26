@@ -87,8 +87,11 @@ const styles = StyleSheet.create({
     },
   },
   icon: {
+    color: {
+      windowsbrush: 'AppBarButtonForeground',
+    },
     fontFamily: 'Segoe MDL2 Assets',
-    fontSize: Sizes.unit * 5
+    fontSize: Sizes.unit * 5,
   },
   label: {
     marginLeft: Sizes.unit * 6,

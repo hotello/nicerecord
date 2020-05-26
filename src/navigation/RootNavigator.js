@@ -61,6 +61,9 @@ export default function RootNavigator() {
 
 const styles = StyleSheet.create({
   container: {
+    backgroundColor: {
+      windowsbrush: 'SystemControlPageBackgroundAltHighBrush'
+    },
     flex: 1,
     flexDirection: 'row',
   },

@@ -8,7 +8,10 @@ export default function IconWindows({ size = 20, name, style, ...props }) {
       style={[
         {
           fontFamily: 'Segoe MDL2 Assets',
-          fontSize: size
+          fontSize: size,
+          color: {
+            windowsbrush: 'SystemControlPageTextBaseHighBrush',
+          },
         },
         style
       ]}
