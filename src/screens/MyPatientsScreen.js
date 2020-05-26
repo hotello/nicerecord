@@ -7,7 +7,7 @@ import PatientList from '../components/PatientList';
 import { Sizes } from '../constants';
 import db from '../lib/db';
 
-export default function MyPatientsScreen({ navigation }) {
+export default function MyPatientsScreen({ navigation, route }) {
   const [patients, setPatients] = React.useState([]);
   const { t } = useTranslation();
 
@@ -31,7 +31,7 @@ export default function MyPatientsScreen({ navigation }) {
     return function () {
       changes.cancel();
     };
-  }, []);
+  }, [route]);
 
   return (
     <View style={styles.screen}>

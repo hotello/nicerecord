@@ -162,32 +162,39 @@ export default function ProfileScreen({ route, navigation }) {
         <Text style={styles.headerTitle}>
           {edit ? patient ? t('profileEdit') : t('addPatient') : t('profile')}
         </Text>
-        {edit ? patient ? (
-          <IconButton
-            icon="&#xE74D;"
-            onPress={() =>
-              db
-                .allDocs({
-                  endkey: `ClinicalImpression_${patient._id}_\uffff`,
-                  include_docs: true,
-                  startkey: `ClinicalImpression_${patient._id}_`,
-                })
-                .then(({ rows }) =>
-                  db.bulkDocs(
-                    rows.map(({ doc }) => ({ ...doc, _deleted: true }))
+        <View style={{ flexDirection: 'row' }}>
+          {edit ? patient ? (
+            <IconButton
+              icon="&#xE74D;"
+              onPress={() =>
+                db
+                  .allDocs({
+                    endkey: `ClinicalImpression_${patient._id}_\uffff`,
+                    include_docs: true,
+                    startkey: `ClinicalImpression_${patient._id}_`,
+                  })
+                  .then(({ rows }) =>
+                    db.bulkDocs(
+                      rows.map(({ doc }) => ({ ...doc, _deleted: true }))
+                    )
                   )
-                )
-                .then(() => db.remove(patient._id, patient._rev))
-                .then(() => navigation.navigate('Root', { edit: false, patient: null }))
-                .catch(console.error)
-            }
-          />
-        ) : null : (
+                  .then(() => db.remove(patient._id, patient._rev))
+                  .then(() => navigation.navigate('Root', { edit: false, patient: null }))
+                  .catch(console.error)
+              }
+            />
+          ) : null : (
+              <IconButton
+                icon="&#xE70F;"
+                onPress={() => navigation.navigate('Profile', { edit: true, patient })}
+              />
+            )}
           <IconButton
-            icon="&#xE70F;"
-            onPress={() => navigation.navigate('Profile', { edit: true, patient })}
-          />    
-        )}
+            icon="&#xE7BC;"
+            onPress={() => navigation.navigate('Patient', { patient })}
+            style={{ marginLeft: Sizes.unit * 2 }}
+          />
+        </View>
       </View>
       <ScrollView style={styles.scroll}>
         <TextInputGroup style={styles.pictureContainer}>
