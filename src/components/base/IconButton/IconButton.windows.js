@@ -60,8 +60,7 @@ const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
     flexDirection: 'row',
-    justifyContent: 'center',
-    padding: Sizes.unit * 3,
+    padding: Sizes.unit * 4,
   },
   containerReveal: {
     backgroundColor: {
@@ -92,7 +91,7 @@ const styles = StyleSheet.create({
     fontSize: Sizes.unit * 5
   },
   label: {
-    marginLeft: Sizes.unit * 2,
+    marginLeft: Sizes.unit * 6,
   },
   touchable: {
     backgroundColor: {
