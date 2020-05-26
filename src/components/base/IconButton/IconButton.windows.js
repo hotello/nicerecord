@@ -22,12 +22,21 @@ export default React.forwardRef(function IconButton(
   },
   ref
 ) {
+  const [hovered, setHovered] = React.useState(false);
+
   return (
     <TouchableHighlight
       {...rest}
       disabled={disabled}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
       onPress={onPress}
-      style={[styles.touchable, styles.disabled, style]}
+      style={[
+        !disabled && styles.touchable,
+        disabled && styles.disabled,
+        hovered && !disabled && styles.hovered,
+        style
+      ]}
       underlayColor={{
         windowsbrush: 'AppBarButtonBackgroundPressed'
       }}
@@ -65,6 +74,11 @@ const styles = StyleSheet.create({
   foregroundDisabled: {
     color: {
       windowsbrush: 'AppBarButtonForegroundDisabled',
+    },
+  },
+  hovered: {
+    backgroundColor: {
+      windowsbrush: 'AppBarButtonBackgroundPointerOver',
     },
   },
   icon: {

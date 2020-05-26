@@ -19,11 +19,20 @@ export default React.forwardRef(function ButtonWindows(
   },
   ref
 ) {
+  const [hovered, setHovered] = React.useState(false);
+
   return (
     <TouchableHighlight
       disabled={disabled}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
       onPress={onPress}
-      style={[styles.touchable, disabled && styles.disabled]}
+      style={[
+        styles.touchable,
+        disabled && styles.disabled,
+        hovered && !disabled && styles.hovered,
+        style
+      ]}
       underlayColor={{
         windowsbrush: 'ButtonBackgroundPressed'
       }}
@@ -49,6 +58,11 @@ const styles = StyleSheet.create({
   disabled: {
     backgroundColor: {
       windowsbrush: 'ButtonBackgroundDisabled',
+    },
+  },
+  hovered: {
+    backgroundColor: {
+      windowsbrush: 'ButtonBackgroundPointerOver',
     },
   },
   label: {

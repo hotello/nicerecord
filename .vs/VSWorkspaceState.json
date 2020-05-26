@@ -1,11 +1,7 @@
 {
   "ExpandedNodes": [
-    "",
-    "\\src",
-    "\\src\\components",
-    "\\src\\components\\base",
-    "\\src\\components\\base\\DateInput"
+    ""
   ],
-  "SelectedNode": "\\src\\components\\base\\DateInput\\DateInput.windows.js",
+  "SelectedNode": "\\src",
   "PreviewInSolutionExplorer": false
 }

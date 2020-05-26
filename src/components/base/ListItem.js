@@ -13,12 +13,16 @@ export default function IconButton(
     ...rest
   }
 ) {
+  const [hovered, setHovered] = React.useState(false);
+
   return (
     <TouchableHighlight
       {...rest}
       disabled={disabled}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
       onPress={onPress}
-      style={[styles.touchable, style]}
+      style={[!disabled && styles.touchable, hovered && !disabled && styles.hovered, style]}
       underlayColor={{
         windowsbrush: 'SystemControlHighlightListMediumBrush',
       }}
@@ -29,6 +33,11 @@ export default function IconButton(
 };
 
 const styles = StyleSheet.create({
+  hovered: {
+    backgroundColor: {
+      windowsbrush: 'SystemControlHighlightListLowBrush',
+    },
+  },
   touchable: {
     backgroundColor: {
       windowsbrush: 'SystemControlTransparentRevealBorderBrush',
