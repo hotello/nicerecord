@@ -111,6 +111,22 @@ export default function ProfileScreen({ route, navigation }) {
   const edit = route.params?.edit;
   const patient = route.params?.patient;
 
+  const getInitialState = (patient) => ({
+    _rev: patient?._rev,
+    birthDate: patient?.birthDate ? new Date(patient.birthDate) : new Date(),
+    email:
+      patient?.telecom?.find(({ system }) => system === 'email')?.value || '',
+    givenName: patient?.name?.given.join(' ') || '',
+    homeAddress:
+      patient?.address?.find(({ use }) => use === 'home')?.text || '',
+    familyName: patient?.name.family || '',
+    notes: patient?.text?.div || '',
+    genericIdentifier:
+      patient?.identifier?.find(({ use }) => use === 'usual')?.value || '',
+    phone:
+      patient?.telecom?.find(({ system }) => system === 'phone')?.value || '',
+  });
+
   const {
     handleBlur,
     handleChange,
@@ -121,21 +137,7 @@ export default function ProfileScreen({ route, navigation }) {
     setFieldValue,
     values,
   } = useFormik({
-    initialValues: {
-      _rev: patient?._rev,
-      birthDate: patient?.birthDate ? new Date(patient.birthDate) : new Date(),
-      email:
-        patient?.telecom?.find(({ system }) => system === 'email')?.value || '',
-      givenName: patient?.name?.given.join(' ') || '',
-      homeAddress:
-        patient?.address?.find(({ use }) => use === 'home')?.text || '',
-      familyName: patient?.name.family || '',
-      notes: patient?.text?.div || '',
-      genericIdentifier:
-        patient?.identifier?.find(({ use }) => use === 'usual')?.value || '',
-      phone:
-        patient?.telecom?.find(({ system }) => system === 'phone')?.value || '',
-    },
+    initialValues: getInitialState(patient),
     onSubmit: (values) => {
       createPatient(values)
         .then(({ id }) => db.get(id))
@@ -152,7 +154,7 @@ export default function ProfileScreen({ route, navigation }) {
 
   React.useEffect(() => {
     if (!patient) {
-      resetForm();
+      resetForm({ nextInitialState: getInitialState(patient) });
     }
   }, [patient]);
 
