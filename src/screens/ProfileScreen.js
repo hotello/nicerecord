@@ -4,8 +4,6 @@ import { useFormik } from 'formik';
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 import {
-  KeyboardAvoidingView,
-  Platform,
   ScrollView,
   StyleSheet,
   View,
@@ -158,31 +156,6 @@ export default function ProfileScreen({ route, navigation }) {
     }
   }, [patient]);
 
-  /*
-  React.useEffect(() => {
-    navigation.setOptions({
-      headerRight: () => (
-        <View style={styles.done}>
-          {edit ? (
-            <Button
-              disabled={!isValid}
-              bold
-              onPress={handleSubmit}
-              title={t('save')}
-            />
-          ) : (
-            <Button
-              onPress={() => navigation.navigate('Profile', { edit: true })}
-              title={t('edit')}
-            />
-          )}
-        </View>
-      ),
-      title: edit ? t('profileEdit') : t('profile'),
-    });
-  }, [route.params, isValid]);
-  */
-
   return (
     <View style={styles.screen}>
       <View style={styles.header}>
@@ -205,7 +178,7 @@ export default function ProfileScreen({ route, navigation }) {
                   )
                 )
                 .then(() => db.remove(patient._id, patient._rev))
-                .then(() => navigation.navigate('Profile', { edit: true, patient: null }))
+                .then(() => navigation.navigate('Root', { edit: false, patient: null }))
                 .catch(console.error)
             }
           />

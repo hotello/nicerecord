@@ -1,11 +1,26 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { StyleSheet, View } from 'react-native';
 
+import { Text } from '../components/base';
 import NoteContext from '../components/NoteContext';
 import MyPatientsScreen from '../screens/MyPatientsScreen';
 import NoteScreen from '../screens/NoteScreen';
 import PatientScreen from '../screens/PatientScreen';
 import ProfileScreen from '../screens/ProfileScreen';
+
+function StartBy() {
+  const { t } = useTranslation();
+  return (
+    <View style={{
+      flex: 1,
+      alignItems: 'center',
+      justifyContent: 'center',
+    }}>
+      <Text>{t('startBy')}</Text>
+    </View>
+  );
+}
 
 export default function RootNavigator() {
   const [note, setNoteState] = React.useState(null);
@@ -27,11 +42,11 @@ export default function RootNavigator() {
         </View>
 
         <View style={styles.master}>
-          {route.name === 'Patient' ? (
-            <PatientScreen navigation={navigation} route={route} />
-          ) : (
-            <ProfileScreen navigation={navigation} route={route} />
-          )}
+          {{
+            'Patient': <PatientScreen navigation={navigation} route={route} />,
+            'Profile': <ProfileScreen navigation={navigation} route={route} />,
+            'Root': <StartBy />,
+          }[route.name]}
         </View>
 
         <View style={styles.detail}>

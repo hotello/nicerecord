@@ -20,6 +20,7 @@
     "profile": "Patient profile",
     "profileEdit": "Edit patient",
     "save": "Save",
-    "setPicture": "Set picture"
+    "setPicture": "Set picture",
+    "startBy":  "Start by adding or selecting a patient."
   }
 }

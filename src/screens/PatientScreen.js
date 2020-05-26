@@ -15,31 +15,6 @@ export default function PatientScreen({ route, navigation }) {
   const newNote = () =>
     setNote({ subject: { reference: patient._id, type: 'Patient' } });
 
-  /*
-  React.useEffect(() => {
-    navigation.setOptions({
-      headerRight: () => (
-        <View style={styles.headerRight}>
-          <IconButton
-            icon="information-circle-outline"
-            onPress={() =>
-              navigation.navigate('Profile', { edit: false, patient: patient })
-            }
-            style={styles.icon}
-          />
-          <IconButton
-            icon="add"
-            onPress={() => newNote()}
-            primary
-            style={styles.icon}
-          />
-        </View>
-      ),
-      title: patient.name.text,
-    });
-  }, [patient]);
-  */
-
   React.useEffect(() => {
     const findNotes = () =>
       db
@@ -100,13 +75,14 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flexDirection: 'row',
     justifyContent: 'space-between',
-    margin: Sizes.content,
+    marginVertical: Sizes.content,
   },
   headerRight: {
     flexDirection: 'row'
   },
   headerTitle: {
     fontSize: Sizes.header,
+    marginLeft: Sizes.content,
   },
   screen: {
     flex: 1,
