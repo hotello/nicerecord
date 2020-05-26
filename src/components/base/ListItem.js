@@ -1,7 +1,8 @@
 import * as React from 'react';
 import {
   StyleSheet,
-  TouchableHighlight
+  TouchableHighlight,
+  View
 } from 'react-native';
 
 export default function IconButton(
@@ -27,7 +28,9 @@ export default function IconButton(
         windowsbrush: 'SystemControlHighlightListMediumBrush',
       }}
     >
-      {children}
+      <View style={styles.container}>
+        {children}
+      </View>
     </TouchableHighlight>
   )
 };
@@ -38,9 +41,18 @@ const styles = StyleSheet.create({
       windowsbrush: 'SystemControlHighlightListLowBrush',
     },
   },
+  container: {
+    backgroundColor: {
+      windowsbrush: 'SystemControlTransparentRevealBackgroundBrush',
+    },
+    borderColor: {
+      windowsbrush: 'SystemControlBackgroundTransparentRevealBorderBrush',
+    },
+    borderWidth: StyleSheet.hairlineWidth,
+  },
   touchable: {
     backgroundColor: {
-      windowsbrush: 'SystemControlTransparentRevealBorderBrush',
+      windowsbrush: 'SystemControlTransparentBrush',
     },
   }
 });

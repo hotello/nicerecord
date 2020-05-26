@@ -42,7 +42,7 @@ export default React.forwardRef(function IconButton(
       }}
       ref={ref}
     >
-      <View style={styles.container}>
+      <View style={[styles.container, !disabled && styles.containerReveal]}>
         <Text style={[styles.icon, disabled && styles.foregroundDisabled]}>
           {icon}
         </Text>
@@ -62,9 +62,15 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     padding: Sizes.unit * 3,
+  },
+  containerReveal: {
     backgroundColor: {
+      windowsbrush: 'SystemControlTransparentRevealBackgroundBrush',
+    },
+    borderColor: {
       windowsbrush: 'SystemControlBackgroundTransparentRevealBorderBrush',
     },
+    borderWidth: StyleSheet.hairlineWidth,
   },
   disabled: {
     backgroundColor: {
