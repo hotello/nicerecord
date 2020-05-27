@@ -178,7 +178,7 @@ export default function ProfileScreen({ route, navigation }) {
                     )
                   )
                   .then(() => db.remove(patient._id, patient._rev))
-                  .then(() => navigation.navigate('Root', { edit: false, patient: null }))
+                  .then(() => navigation.navigate('Profile', { edit: true, patient: null }))
                   .catch(console.error)
               }
             />
@@ -236,7 +236,6 @@ export default function ProfileScreen({ route, navigation }) {
             dateFormat="longdate"
             editable={edit && !patient?.birthDate}
             label={t('birthDate')}
-            maximumDate={new Date()}
             onChange={(date) => setFieldValue('birthDate', date)}
             value={values.birthDate}
           />

@@ -48,7 +48,7 @@ export default function RootNavigator() {
       }
     }
 
-    getPatient().catch(console.error);
+    getPatient().catch(console.log);
   }, []);
 
   return (
