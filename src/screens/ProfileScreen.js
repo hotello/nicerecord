@@ -111,7 +111,7 @@ export default function ProfileScreen({ route, navigation }) {
   const edit = route.params?.edit;
   const patient = route.params?.patient;
 
-  const getInitialState = (patient) => ({
+  const getInitialValues = (patient) => ({
     _rev: patient?._rev,
     birthDate: patient?.birthDate ? new Date(patient.birthDate) : new Date(),
     email:
@@ -131,13 +131,12 @@ export default function ProfileScreen({ route, navigation }) {
     handleBlur,
     handleChange,
     handleSubmit,
-    isSubmitting,
     isValid,
     resetForm,
     setFieldValue,
     values,
   } = useFormik({
-    initialValues: getInitialState(patient),
+    initialValues: getInitialValues(patient),
     onSubmit: (values) => {
       createPatient(values)
         .then(({ id }) => db.get(id))
@@ -153,10 +152,8 @@ export default function ProfileScreen({ route, navigation }) {
   });
 
   React.useEffect(() => {
-    if (!patient) {
-      resetForm({ nextInitialState: getInitialState(patient) });
-    }
-  }, [patient]);
+    resetForm({ values: getInitialValues(patient) });
+  }, [patient])
 
   return (
     <View style={styles.screen}>
@@ -191,11 +188,19 @@ export default function ProfileScreen({ route, navigation }) {
                 onPress={() => navigation.navigate('Profile', { edit: true, patient })}
               />
             )}
-          <IconButton
+          {edit && patient && <IconButton
+            icon="&#xE711;"
+            onPress={() => {
+              resetForm({ values: getInitialValues(patient) });
+              navigation.navigate('Profile', { edit: false, patient });
+            }}
+            style={{ marginLeft: Sizes.unit * 2 }}
+          />}
+          {patient && <IconButton
             icon="&#xE7BC;"
             onPress={() => navigation.navigate('Patient', { patient })}
             style={{ marginLeft: Sizes.unit * 2 }}
-          />
+          />}
         </View>
       </View>
       <ScrollView style={styles.scroll}>
@@ -210,7 +215,7 @@ export default function ProfileScreen({ route, navigation }) {
 
         <TextInputGroup>
           <TextInput
-            editable={edit && !patient?.givenName}
+            editable={edit && !patient?.name}
             maxLength={50}
             onBlur={handleBlur('givenName')}
             onChangeText={handleChange('givenName')}
@@ -219,7 +224,7 @@ export default function ProfileScreen({ route, navigation }) {
             value={values.givenName}
           />
           <TextInput
-            editable={edit && !patient?.familyName}
+            editable={edit && !patient?.name}
             maxLength={50}
             onBlur={handleBlur('familyName')}
             onChangeText={handleChange('familyName')}
@@ -228,8 +233,10 @@ export default function ProfileScreen({ route, navigation }) {
             value={values.familyName}
           />
           <DateInput
+            dateFormat="longdate"
             editable={edit && !patient?.birthDate}
             label={t('birthDate')}
+            maximumDate={new Date()}
             onChange={(date) => setFieldValue('birthDate', date)}
             value={values.birthDate}
           />
@@ -283,7 +290,7 @@ export default function ProfileScreen({ route, navigation }) {
             editable={edit}
             maxLength={10000}
             multiline={true}
-            numberOfLines={10}
+            numberOfLines={5}
             onBlur={handleBlur('notes')}
             onChangeText={handleChange('notes')}
             placeholder={t('notes')}
@@ -296,7 +303,7 @@ export default function ProfileScreen({ route, navigation }) {
           <View style={styles.save}>
             <Button
               title={t('save')}
-              disabled={!isValid || isSubmitting}
+              disabled={!isValid}
               bold
               onPress={handleSubmit}
             />
@@ -338,6 +345,7 @@ const styles = StyleSheet.create({
   save: {
     flexDirection: 'row',
     paddingHorizontal: Sizes.content,
+    marginBottom: Sizes.content,
   },
   screen: {
     flex: 1,

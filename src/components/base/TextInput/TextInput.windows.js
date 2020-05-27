@@ -1,26 +1,19 @@
 import * as React from 'react';
 import { TextInput as RNTextInput, StyleSheet } from 'react-native';
 
-import { Colors, Sizes } from '../../../constants';
+import { Sizes } from '../../../constants';
 
-export default React.forwardRef(function TextInputAndroid(
-  {
-    disabledUnderlineAndroid,
-    placeholderTextColor = Colors.muted,
-    selectionColor = Colors.primary,
-    style,
-    underlineColorAndroid = Colors.primary,
-    ...props
-  },
+export default React.forwardRef(function TextInputWindows(
+  { multiline, numberOfLines = 1, style, ...props },
   ref
 ) {
+  const height = { height: numberOfLines * Sizes.unit * 7 };
   return (
     <RNTextInput
       {...props}
-      placeholderTextColor={placeholderTextColor}
+      multiline={multiline}
       ref={ref}
-      selectionColor={selectionColor}
-      style={[styles.input, style]}
+      style={[styles.input, multiline && height, style]}
     />
   );
 });

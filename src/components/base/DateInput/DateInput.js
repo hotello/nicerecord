@@ -1,4 +1,4 @@
-import { format } from 'date-fns';
+import format from 'date-fns/format';
 import * as React from 'react';
 import { Platform, StyleSheet, View } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
