@@ -1,10 +1,7 @@
 {
   "ExpandedNodes": [
-    "",
-    "\\src",
-    "\\src\\components",
-    "\\src\\components\\base"
+    ""
   ],
-  "SelectedNode": "\\src\\components\\NoteList.js",
+  "SelectedNode": "\\src",
   "PreviewInSolutionExplorer": false
 }

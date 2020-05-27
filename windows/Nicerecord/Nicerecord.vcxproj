@@ -203,6 +203,9 @@
       <Project>{f7d32bd0-2749-483e-9a0d-1635ef7e3136}</Project>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Package.StoreAssociation.xml" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <PropertyGroup>
     <BundleCommand>
@@ -213,7 +216,7 @@
     <AppxAutoIncrementPackageRevision>False</AppxAutoIncrementPackageRevision>
     <GenerateTestArtifacts>True</GenerateTestArtifacts>
     <AppxBundle>Always</AppxBundle>
-    <AppxBundlePlatforms>x86</AppxBundlePlatforms>
+    <AppxBundlePlatforms>x86|x64|arm|arm64</AppxBundlePlatforms>
     <HoursBetweenUpdateChecks>0</HoursBetweenUpdateChecks>
   </PropertyGroup>
   <Import Project="..\..\node_modules\react-native-windows\PropertySheets\Bundle.Cpp.targets" />
