@@ -27,3 +27,4 @@
 
 #include "nativeModules.g.h"
 #include "winrt/DateTimePicker.h"
+#include "winrt/ReactNativeAsyncStorage.h"

@@ -38,6 +38,7 @@ App::App() noexcept
     REACT_REGISTER_NATIVE_MODULE_PACKAGES(); //code-gen macro from autolink
 
     PackageProviders().Append(winrt::DateTimePicker::ReactPackageProvider());
+    PackageProviders().Append(winrt::ReactNativeAsyncStorage::ReactPackageProvider());
 
     InitializeComponent();
 

@@ -1,15 +1,12 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { StyleSheet, View } from 'react-native';
+import AsyncStorage from '@react-native-community/async-storage';
 
-import {
-  Icon,
-  IconButton,
-  ListItem,
-  Text
-} from '../components/base';
+import { IconButton } from '../components/base';
 import NoteContext from '../components/NoteContext';
 import { Sizes } from '../constants';
+import db from '../lib/db';
 import MyPatientsScreen from '../screens/MyPatientsScreen';
 import NoteScreen from '../screens/NoteScreen';
 import PatientScreen from '../screens/PatientScreen';
@@ -28,6 +25,31 @@ export default function RootNavigator() {
   };
 
   const setNote = (note) => setNoteState(note);
+
+  React.useEffect(() => {
+    async function setPatient(route) {
+      const patient = route.params?.patient;
+      if (patient) {
+        await AsyncStorage.setItem('lastPatient', patient._id);
+      }
+    }
+
+    setPatient(route).catch(console.error);
+  }, [route.params?.patient]);
+
+  React.useEffect(() => {
+    async function getPatient() {
+      const storagePatient = await AsyncStorage.getItem('lastPatient');
+      if (storagePatient) {
+        const patient = await db.get(storagePatient);
+        if (patient) {
+          navigation.navigate('Patient', { patient: patient });
+        }
+      }
+    }
+
+    getPatient().catch(console.error);
+  }, []);
 
   return (
     <NoteContext.Provider value={{ note, setNote }}>
