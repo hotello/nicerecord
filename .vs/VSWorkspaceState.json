@@ -1,8 +1,10 @@
 {
   "ExpandedNodes": [
     "",
-    "\\windows\\Nicerecord"
+    "\\src",
+    "\\src\\components",
+    "\\src\\components\\base"
   ],
-  "SelectedNode": "\\src",
+  "SelectedNode": "\\src\\components\\NoteList.js",
   "PreviewInSolutionExplorer": false
 }
