@@ -48,7 +48,7 @@ export default function PatientScreen({ route, navigation }) {
   }, [patient._id]);
 
   return (
-    <View>
+    <React.Fragment>
       <View style={styles.header}>
         <Text style={styles.headerTitle}>
           {patient.name.text}
@@ -70,7 +70,7 @@ export default function PatientScreen({ route, navigation }) {
         onPress={(note) => setNote(note)}
         selected={note ? note._id : null}
       />
-    </View>
+    </React.Fragment>
   );
 }
 

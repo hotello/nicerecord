@@ -46,7 +46,6 @@ const styles = StyleSheet.create({
     marginBottom: Sizes.unit * 2,
   },
   empty: {
-    alignItems: 'center',
     padding: Sizes.content,
     justifyContent: 'center',
   },
