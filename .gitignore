@@ -60,3 +60,4 @@ buck-out/
 
 # Fuck you Visual Studio
 .vs
+msbuild.binlog
