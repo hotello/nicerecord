@@ -9,6 +9,7 @@ import {
   View,
 } from 'react-native';
 import * as Yup from 'yup';
+import { v4 as uuidv4 } from 'uuid';
 
 import { Sizes } from '../constants';
 import {
@@ -54,7 +55,7 @@ const createPatient = ({
 
   const patient = {
     ...rest,
-    _id: `Patient_${givenName}_${familyName}_${birthDateISO}`,
+    _id: `Patient_${uuidv4()}`,
     birthDate: birthDateISO,
     name: {
       family: familyName,
