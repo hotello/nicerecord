@@ -3,9 +3,11 @@ import formatISO from 'date-fns/formatISO';
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 import {
+  Linking,
   StyleSheet,
   TextInput,
-  View
+  TouchableWithoutFeedback,
+  View,
 } from 'react-native';
 
 import { IconButton, Text } from '../components/base';
@@ -108,6 +110,21 @@ export default function NoteScreen({ navigation }) {
         textAlignVertical={'top'}
         value={summary}
       />
+      <View style={{ alignItems: 'flex-end', padding: Sizes.edge }}>
+        <TouchableWithoutFeedback
+          onPress={() => Linking.openURL('https://nicerecord.com/privacy-policy')}
+        >
+          <Text
+            style={{
+              color: 'blue',
+              fontSize: 12,
+              textDecorationLine: 'underline',
+            }}
+          >
+            {t('privacyPolicy')}
+          </Text>
+        </TouchableWithoutFeedback>
+      </View>
     </View>
   );
 }

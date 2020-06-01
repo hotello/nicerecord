@@ -17,6 +17,7 @@
     "patient": "Patient",
     "patientId": "ID",
     "phoneNumber": "Phone number",
+    "privacyPolicy":  "Privacy policy",
     "profile": "Patient profile",
     "profileEdit": "Edit patient",
     "save": "Save",
