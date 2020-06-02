@@ -110,13 +110,13 @@ export default function NoteScreen({ navigation }) {
         textAlignVertical={'top'}
         value={summary}
       />
-      <View style={{ alignItems: 'flex-end', padding: Sizes.edge }}>
+      <View style={{ alignItems: 'flex-end', padding: Sizes.content }}>
         <TouchableWithoutFeedback
           onPress={() => Linking.openURL('https://nicerecord.com/privacy-policy')}
         >
           <Text
+            muted
             style={{
-              color: 'blue',
               fontSize: 12,
               textDecorationLine: 'underline',
             }}
