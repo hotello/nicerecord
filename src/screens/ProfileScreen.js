@@ -9,7 +9,7 @@ import {
   View,
 } from 'react-native';
 import * as Yup from 'yup';
-import { v4 as uuidv4 } from 'uuid';
+import * as shortid from 'shortid';
 
 import { Sizes } from '../constants';
 import {
@@ -22,6 +22,8 @@ import {
   TextInputGroup,
 } from '../components/base';
 import db from '../lib/db';
+
+shortid.characters('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ$@');
 
 const PatientSchema = Yup.object().shape({
   birthDate: Yup.date()
@@ -56,7 +58,7 @@ const createPatient = ({
 
   const patient = {
     ...rest,
-    _id: _id || `Patient_${uuidv4()}`,
+    _id: _id || `Patient_${shortid.generate()}`,
     birthDate: birthDateISO,
     name: {
       family: familyName,
@@ -112,6 +114,8 @@ export default function ProfileScreen({ route, navigation }) {
   const { t } = useTranslation();
   const edit = route.params?.edit;
   const patient = route.params?.patient;
+
+  console.log(patient);
 
   const getInitialValues = (patient) => ({
     _id: patient?._id,
