@@ -36,6 +36,7 @@ const PatientSchema = Yup.object().shape({
 });
 
 const createPatient = ({
+  _id,
   birthDate,
   email,
   familyName,
@@ -55,7 +56,7 @@ const createPatient = ({
 
   const patient = {
     ...rest,
-    _id: `Patient_${uuidv4()}`,
+    _id: _id || `Patient_${uuidv4()}`,
     birthDate: birthDateISO,
     name: {
       family: familyName,
@@ -113,6 +114,7 @@ export default function ProfileScreen({ route, navigation }) {
   const patient = route.params?.patient;
 
   const getInitialValues = (patient) => ({
+    _id: patient?._id,
     _rev: patient?._rev,
     birthDate: patient?.birthDate ? new Date(patient.birthDate) : new Date(),
     email:
