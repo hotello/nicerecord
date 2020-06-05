@@ -9,7 +9,7 @@
  <Identity
     Name="55879FabioRomita.Nicerecord"
     Publisher="CN=75CA449F-0736-4DCC-AD1C-14B8A2B724C2"
-    Version="0.1.1.0" />
+    Version="0.1.2.0" />
 
   <mp:PhoneIdentity PhoneProductId="c5f2b5b7-4b5c-4b26-9bd3-3dd344e22603" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
