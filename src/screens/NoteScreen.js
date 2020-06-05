@@ -105,7 +105,7 @@ export default function NoteScreen({ navigation }) {
         editable={!!note?.subject}
         multiline
         onChangeText={(text) => setSummary(text)}
-        placeholder={t('writeHere')}
+        placeholder={!!note?.subject ? t('writeHere') : t('addOrSelectPatient')}
         style={styles.input}
         textAlignVertical={'top'}
         value={summary}

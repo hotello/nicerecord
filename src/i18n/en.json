@@ -1,5 +1,6 @@
 {
   "translation": {
+    "addOrSelectPatient":  "Add or select a patient to start writing.",
     "addPatient": "Add patient",
     "birthDate": "Birth date",
     "deletePatient": "Delete patient",
@@ -17,7 +18,7 @@
     "patient": "Patient",
     "patientId": "ID",
     "phoneNumber": "Phone number",
-    "privacyPolicy":  "Privacy policy",
+    "privacyPolicy": "Privacy policy",
     "profile": "Patient profile",
     "profileEdit": "Edit patient",
     "save": "Save",

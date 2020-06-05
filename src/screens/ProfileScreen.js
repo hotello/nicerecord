@@ -115,8 +115,6 @@ export default function ProfileScreen({ route, navigation }) {
   const edit = route.params?.edit;
   const patient = route.params?.patient;
 
-  console.log(patient);
-
   const getInitialValues = (patient) => ({
     _id: patient?._id,
     _rev: patient?._rev,
