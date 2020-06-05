@@ -142,7 +142,7 @@ export default function ProfileScreen({ route, navigation }) {
       createPatient(values)
         .then(({ id }) => db.get(id))
         .then((newDoc) =>
-          navigation.navigate('Profile', {
+          navigation.navigate('Patient', {
             edit: false,
             patient: newDoc,
           })
