@@ -26,9 +26,7 @@ import db from '../lib/db';
 shortid.characters('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ$@');
 
 const PatientSchema = Yup.object().shape({
-  birthDate: Yup.date()
-    .max(sub(new Date(), { days: 1 }))
-    .required(),
+  birthDate: Yup.date().required(),
   email: Yup.string().max(150).email(),
   givenName: Yup.string().max(50).required(),
   familyName: Yup.string().max(50).required(),
@@ -118,7 +116,7 @@ export default function ProfileScreen({ route, navigation }) {
   const getInitialValues = (patient) => ({
     _id: patient?._id,
     _rev: patient?._rev,
-    birthDate: patient?.birthDate ? new Date(patient.birthDate) : new Date(),
+    birthDate: patient?.birthDate ? new Date(patient.birthDate) : undefined,
     email:
       patient?.telecom?.find(({ system }) => system === 'email')?.value || '',
     givenName: patient?.name?.given.join(' ') || '',
@@ -220,28 +218,32 @@ export default function ProfileScreen({ route, navigation }) {
 
         <TextInputGroup>
           <TextInput
-            editable={edit && !patient?.name}
+            editable={edit}
+            label={t('firstName')}
             maxLength={50}
             onBlur={handleBlur('givenName')}
             onChangeText={handleChange('givenName')}
-            placeholder={t('firstName')}
+            required
             underlineIOS
             value={values.givenName}
           />
           <TextInput
-            editable={edit && !patient?.name}
+            editable={edit}
+            label={t('lastName')}
             maxLength={50}
             onBlur={handleBlur('familyName')}
             onChangeText={handleChange('familyName')}
-            placeholder={t('lastName')}
+            required
             underlineIOS
             value={values.familyName}
           />
           <DateInput
             dateFormat="longdate"
-            editable={edit && !patient?.birthDate}
+            editable={edit}
             label={t('birthDate')}
             onChange={(date) => setFieldValue('birthDate', date)}
+            placeholder={t('selectADate')}
+            required
             value={values.birthDate}
           />
         </TextInputGroup>
@@ -249,41 +251,41 @@ export default function ProfileScreen({ route, navigation }) {
         <TextInputGroup>
           <TextInput
             editable={edit}
+            label={t('patientId')}
             maxLength={100}
             onBlur={handleBlur('genericIdentifier')}
             onChangeText={handleChange('genericIdentifier')}
-            placeholder={t('patientId')}
             underlineIOS
             value={values.genericIdentifier}
           />
           <TextInput
             editable={edit}
+            label={t('phoneNumber')}
             maxLength={50}
             keyboardType="phone-pad"
             onBlur={handleBlur('phone')}
             onChangeText={handleChange('phone')}
-            placeholder={t('phoneNumber')}
             underlineIOS
             value={values.phone}
           />
           <TextInput
             editable={edit}
+            label={t('email')}
             maxLength={150}
             keyboardType="email-address"
             onBlur={handleBlur('email')}
             onChangeText={handleChange('email')}
-            placeholder={t('email')}
             underlineIOS
             value={values.email}
           />
           <TextInput
             editable={edit}
+            label={t('homeAddress')}
             maxLength={200}
             multiline={true}
             numberOfLines={2}
             onBlur={handleBlur('homeAddress')}
             onChangeText={handleChange('homeAddress')}
-            placeholder={t('homeAddress')}
             textAlignVertical={'top'}
             value={values.homeAddress}
           />
@@ -292,12 +294,12 @@ export default function ProfileScreen({ route, navigation }) {
         <TextInputGroup>
           <TextInput
             editable={edit}
+            label={t('notes')}
             maxLength={10000}
             multiline={true}
             numberOfLines={5}
             onBlur={handleBlur('notes')}
             onChangeText={handleChange('notes')}
-            placeholder={t('notes')}
             textAlignVertical={'top'}
             value={values.notes}
           />

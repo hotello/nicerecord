@@ -1,14 +1,18 @@
 import format from 'date-fns/format';
 import * as React from 'react';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 
+import Text from '../Text';
 import TextInput from '../TextInput';
+import { Sizes } from '../../../constants';
 
 export default function DateInput({
   editable,
   label,
   onChange = () => { },
+  placeholder,
+  required,
   value,
   ...props
 }) {
@@ -19,17 +23,24 @@ export default function DateInput({
   return editable === false || editable === null ? (
     <TextInput
       editable={false}
-      placeholder={label}
+      label={label}
       value={value ? format(value, 'PP') : undefined}
     />
   ) : (
-      <DateTimePicker
-        {...props}
-        onChange={onChangeInternal}
-        placeholderText={label}
-        value={value}
-        style={styles.picker}
-      />
+      <View>
+        {label && (
+          <Text style={{ marginBottom: Sizes.unit }}>
+            {label + (required && editable ? ' *' : '')}
+          </Text>
+        )}
+        <DateTimePicker
+          {...props}
+          onChange={onChangeInternal}
+          placeholderText={placeholder}
+          value={value}
+          style={styles.picker}
+        />
+      </View>
     );
 }
 
