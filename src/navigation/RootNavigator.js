@@ -101,6 +101,7 @@ const styles = StyleSheet.create({
     backgroundColor: {
       windowsbrush: 'SystemControlAcrylicWindowBrush'
     },
+    paddingTop: Sizes.unit * 4,
     width: Sizes.unit * 14,
   },
   open: {
