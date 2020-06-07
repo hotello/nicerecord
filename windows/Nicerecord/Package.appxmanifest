@@ -11,7 +11,7 @@
     Publisher="CN=75CA449F-0736-4DCC-AD1C-14B8A2B724C2"
     Version="0.2.0.0" />
 
-  <mp:PhoneIdentity PhoneProductId="2fca39d5-658c-4a3a-95e2-6f737fd8768c" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
+  <mp:PhoneIdentity PhoneProductId="877d68b6-a8b6-4fcd-92f9-72e93240b591" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
   <Properties>
     <DisplayName>Nicerecord</DisplayName>
@@ -35,9 +35,9 @@
         DisplayName="Nicerecord"
         Square150x150Logo="Assets\Square150x150Logo.png"
         Square44x44Logo="Assets\Square44x44Logo.png"
-        Description="Nicerecord"
+        Description="The minimalistic EHR."
         BackgroundColor="transparent">
-        <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png"/>
+        <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png" Square71x71Logo="Assets\SmallTile.png" Square310x310Logo="Assets\LargeTile.png"/>
         <uap:SplashScreen Image="Assets\SplashScreen.png" />
         <uap:InitialRotationPreference>
           <uap:Rotation Preference="landscape"/></uap:InitialRotationPreference>

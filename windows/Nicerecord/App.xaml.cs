@@ -25,11 +25,11 @@ namespace Nicerecord
 #endif
 
         PackageProviders.Add(new Microsoft.ReactNative.Managed.ReactPackageProvider()); // Includes any modules in this project
-        
+
         // External native modules
         PackageProviders.Add(new ReactNativeAsyncStorage.ReactPackageProvider());
         PackageProviders.Add(new DateTimePicker.ReactPackageProvider());
-
+        
         InitializeComponent();
     }
 }
