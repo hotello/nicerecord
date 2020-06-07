@@ -37,7 +37,6 @@ export default React.forwardRef(function TextInputWindows(
 
 const styles = StyleSheet.create({
   input: {
-    borderRadius: Sizes.radius,
     marginBottom: Sizes.unit * 2,
     minHeight: Sizes.unit * 8,
   },
