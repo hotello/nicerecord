@@ -333,6 +333,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flexDirection: 'row',
     justifyContent: 'space-between',
+    minHeight: Sizes.unit * 21,
     padding: Sizes.content,
     paddingBottom: Sizes.unit * 4,
   },

@@ -91,9 +91,11 @@ const styles = StyleSheet.create({
   },
   detail: {
     flex: 1,
+    paddingTop: Sizes.unit * 4,
   },
   master: {
     width: Sizes.unit * 100,
+    paddingTop: Sizes.unit * 4,
   },
   sidebar: {
     backgroundColor: {

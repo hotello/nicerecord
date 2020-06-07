@@ -1,4 +1,6 @@
 ﻿using Microsoft.ReactNative;
+using Windows.ApplicationModel.Activation;
+using Windows.ApplicationModel.Core;
 
 namespace Nicerecord
 {
@@ -31,6 +33,15 @@ namespace Nicerecord
         PackageProviders.Add(new DateTimePicker.ReactPackageProvider());
         
         InitializeComponent();
+    }
+
+    protected override void OnLaunched(LaunchActivatedEventArgs e)
+    {
+        base.OnLaunched(e);
+
+        // Hide default title bar.
+        var coreTitleBar = CoreApplication.GetCurrentView().TitleBar;
+        coreTitleBar.ExtendViewIntoTitleBar = true;
     }
 }
 }
